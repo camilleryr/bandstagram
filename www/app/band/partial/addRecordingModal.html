@@ -1,0 +1,22 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">Create Recording</h1>
+    </ion-header-bar>
+    <ion-content>
+        <button class="button button-block button-positive" ng-click="recording.start()">
+            Start Recording
+        </button>
+        <button class="button button-block button-calm" ng-click="recording.stop()">
+            Stop Recording
+        </button>
+        <button class="button button-block button-balanced" ng-click="recording.play()">
+            Play Recording
+        </button>
+        <button class="button button-block button-energized" ng-click="closeModal(true)">
+            Save Recording
+        </button>
+        <button class="button button-block button-assertive" ng-click="closeModal(false)">
+            Cancel
+        </button>
+    </ion-content>
+</ion-modal-view>
