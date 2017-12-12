@@ -17,6 +17,7 @@ angular.module('bandstagram')
         $scope.logMeIn = function () {
             authFactory.authenticate($scope.auth).then(function (didLogin) {
                 $scope.login = {}
+                $state.go(didLogin.displayName + ".home")
             })
         }
 
@@ -49,9 +50,7 @@ angular.module('bandstagram')
                         user.updateProfile({ "displayName": $scope.auth.account })
                         $scope.userInfo.uid = user.uid
                         databaseFactory.postUserInfo($scope.auth.account, $scope.userInfo)
-                    })
-                    .then(function () {
-                        $scope.logMeIn($scope.auth)
+                        $scope.logMeIn()
                     })
             }
         };

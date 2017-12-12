@@ -38,7 +38,7 @@ angular.module("bandstagram")
                         .signInWithEmailAndPassword(
                             credentials.email,
                             credentials.password
-                        ).then(function(user) {console.log(user)})
+                        ).then(user => user)
         },
         registerWithEmail: {
             value: user => 
