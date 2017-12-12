@@ -1,27 +1,24 @@
 angular.module('bandstagram')
-  .factory("mediaFactory", function ($cordovaCamera, $state, authFactory, $ionicPlatform) {
-    
+  .factory("mediaFactory", function ($state, authFactory, $ionicPlatform) {
+
     let storageRef = firebase.storage().ref()
 
     return Object.create(null, {
-      
-      "takePicture": {
-        "value": () => {
-          var options = {
-            quality: 60,
-            destinationType: Camera.DestinationType.DATA_URL,
-            sourceType: Camera.PictureSourceType.CAMERA,
-            allowEdit: true,
-            encodingType: Camera.EncodingType.JPEG,
-            targetWidth: 200,
-            targetHeight: 200,
-            popoverOptions: CameraPopoverOptions,
-            saveToPhotoAlbum: false,
-          correctOrientation:true
-          };
-          
-          $cordovaCamera.getPicture(options)
-        }
+
+      "photoOptions": {
+        "value":  function() {
+          return {
+              quality: 80,
+              destinationType: Camera.DestinationType.DATA_URL,
+              sourceType: Camera.PictureSourceType.CAMERA,
+              allowEdit: true,
+              encodingType: Camera.EncodingType.JPEG,
+              targetWidth: 250,
+              targetHeight: 250,
+              popoverOptions: CameraPopoverOptions,
+              saveToPhotoAlbum: false
+            }
+          }
       },
 
       "savePicture": {
