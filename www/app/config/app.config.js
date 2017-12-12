@@ -98,7 +98,7 @@ angular.module('bandstagram')
             })
 
 
-        // $urlRouterProvider.otherwise('/auth');
+        $urlRouterProvider.otherwise('/auth');
 
     })
 
