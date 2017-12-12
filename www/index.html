@@ -23,28 +23,39 @@
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
-    <!-- ionic/angularjs js -->
+    <!-- ionic/angularjs js / Firebase / ngCordova -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-    
-    <!-- ng-cordova framework -->
+    <script src="lib/firebase/firebase.js"></script>
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
     
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
-    <!-- your app's js -->
+    <!-- config js files -->
     <script src="app/app.js"></script>
-
-
+    <script src="app/config/app.constant.js"></script>
+    <script src="app/config/app.config.js"></script>
+    
+    <!-- controller js files -->
+    <script src="app/auth/factory/authFactory.js"></script>
+    <script src="app/util/mediaFactory.js"></script>
+    <script src="app/util/databaseFactory.js"></script>
+    
+    <script src="app/auth/controller/authCtrl.js"></script>
+    <script src="app/band/controller/bandAddCtrl.js"></script>
+    <script src="app/band/controller/bandHomeCtrl.js"></script>
+    <script src="app/fan/controller/fanSearchCtrl.js"></script>
+    <script src="app/fan/controller/fanHomeCtrl.js"></script>
+    
   </head>
   <body ng-app="bandstagram">
-
-    <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Ionic Blank Starter</h1>
-      </ion-header-bar>
-      <ion-content>
-      </ion-content>
-    </ion-pane>
+    
+    <ion-nav-bar class="bar-stable">
+      <!-- <ion-nav-back-button>
+        <button></button>
+      </ion-nav-back-button> -->
+    </ion-nav-bar>
+    
+    <ion-nav-view></ion-nav-view>
   </body>
 </html>
