@@ -13,8 +13,23 @@ angular
                                 url: `${FIREBASE_CONFIG.databaseURL}/${accountType}Table/.json?auth=${idToken}`,
                                 data: userInfo
                             })
-                        })
+                        }
+                    )
                 }
-            }
-    })
+            },
+            "postRecordingInfo": {
+                value: function (recordingInfo) {
+                    return firebase.auth().currentUser.getIdToken(true)
+                        .then(idToken => {
+                            return $http({
+                                method: "POST",
+                                url: `${FIREBASE_CONFIG.databaseURL}/recordingTable/.json?auth=${idToken}`,
+                                data: recordingInfo
+                            })
+                        }
+                    )
+                }
+            },
+        }
+    )
 })
