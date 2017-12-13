@@ -10,14 +10,13 @@ angular.module('bandstagram')
         }
 
         $scope.userInfo = {
-            "uid" : null
+            "uid": null
         }
 
 
         $scope.logMeIn = function () {
             authFactory.authenticate($scope.auth).then(function (didLogin) {
                 $scope.login = {}
-                $state.go(didLogin.displayName + ".home")
             })
         }
 
@@ -47,9 +46,10 @@ angular.module('bandstagram')
             if (bool) {
                 authFactory.registerWithEmail($scope.auth)
                     .then(function (user) {
-                        user.updateProfile({ "displayName": $scope.auth.account })
+                        user.updateProfile({ "displayName" : $scope.auth.account })
                         $scope.userInfo.uid = user.uid
                         databaseFactory.postUserInfo($scope.auth.account, $scope.userInfo)
+                        authFactory.logout()
                         $scope.logMeIn()
                     })
             }

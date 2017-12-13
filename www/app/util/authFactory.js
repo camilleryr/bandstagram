@@ -6,8 +6,12 @@ angular.module("bandstagram")
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             currentUserData = user
-            console.log("User is authenticated as")
-            console.dir(currentUserData)
+            try {
+                $state.go(currentUserData.displayName + ".home")
+            } catch (error) {
+                console.log("its a race")
+            }
+            
                 //write logic that will query the isband table to determine where to navigate the state - band or fan
 
         } else {

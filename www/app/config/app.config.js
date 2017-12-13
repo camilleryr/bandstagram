@@ -34,7 +34,7 @@ angular.module('bandstagram')
             .state('auth', {
                 url: '/auth',
                 templateUrl: 'app/auth/partial/auth.html',
-                controller: 'authCtrl',
+                controller: 'authCtrl'
             })
 
             // setup an abstract state for the band tabs directive
@@ -98,7 +98,7 @@ angular.module('bandstagram')
             })
 
 
-        // $urlRouterProvider.otherwise('/auth');
+        $urlRouterProvider.otherwise('/auth');
 
     })
 
