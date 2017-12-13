@@ -1,11 +1,23 @@
 angular.module('bandstagram')
-    .controller('bandAddCtrl', function ($scope, $state, mediaFactory, $cordovaCamera, $cordovaMedia, $ionicModal) {
+    .controller('bandAddCtrl', function ($scope, $state, $cordovaCamera, $cordovaMedia, $cordovaFile,$ionicModal) {
         $scope.srcImage = "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fcnet4.cbsistatic.com%2Ffly%2F893-fly%2Fbundles%2Fcnetcss%2Fimages%2Fplaceholder%2Fimage_placeholder.png&f=1"
         $scope.recordingInfo = {}
 
         $scope.takePicture = function () {
+            let options = 
+            {
+                quality: 80,
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: Camera.PictureSourceType.CAMERA,
+                allowEdit: true,
+                encodingType: Camera.EncodingType.JPEG,
+                targetWidth: 250,
+                targetHeight: 250,
+                popoverOptions: CameraPopoverOptions,
+                saveToPhotoAlbum: false
+              }
 
-            $cordovaCamera.getPicture(mediaFactory.photoOptions).then(function (imageData) {
+            $cordovaCamera.getPicture(options).then(function (imageData) {
                 $scope.srcImage = "data:image/jpeg;base64," + imageData;
             }, function (err) {
                 // error
@@ -28,31 +40,33 @@ angular.module('bandstagram')
 
         }
 
-        $scope.recording = function(){
-            let recordingObj
-            let name
-            return Object.create(null, {
+        $scope.recording = Object.create(null, {
+                "name" : {"value": "", "writable": true, "enumberable": true},
+
+                "recordingObj" : {"value": {}, "writable": true, "enumberable": true},
+
                 "start" : {
                     "value" : function () {
-                        console.log("test")
-                        name = "cdvfile://localhost/temporary/" + Date.now() + ".m4a"
-                        recordingObj = $cordovaMedia.newMedia(name)
-
-                        recordingObj.startRecord();
+                        this.name = "cdvfile://localhost/temporary/" + Date.now() + ".m4a"
+                        this.recordingObj = $cordovaMedia.newMedia(name)
+                        
+                        console.log(JSON.stringify(this.recordingObj))
+                        this.recordingObj.startRecord();
                     }
                 },
                 "stop" : {
                     "value" : function () {
-                        recordingObj.startRecord();
+                        console.log(JSON.stringify(this.recordingObj))
+                        this.recordingObj.stopRecord();
+                        console.log(JSON.stringify(this.recordingObj))
                     }
                 },
                 "play" : {
                     "value" : function () {
-                        recordingObj.play();
+                        this.recordingObj.play();
                     }
                 },
             })
-        }
+        })
 
 
-    })

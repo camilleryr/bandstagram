@@ -1,6 +1,6 @@
 angular
     .module("bandstagram")
-    .factory("databaseFactory", function ($http) {
+    .factory("databaseFactory", function ($http, FIREBASE_CONFIG) {
 
         return Object.create(null, {
 
@@ -10,7 +10,7 @@ angular
                         .then(idToken => {
                             return $http({
                                 method: "POST",
-                                url: `https://bandstagram-2155c.firebaseio.com/${accountType}Table/.json?auth=${idToken}`,
+                                url: `${FIREBASE_CONFIG.databaseURL}/${accountType}Table/.json?auth=${idToken}`,
                                 data: userInfo
                             })
                         })

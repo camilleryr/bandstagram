@@ -19,7 +19,7 @@ angular.module('bandstagram')
               saveToPhotoAlbum: false
             }
           }
-      },
+      }
 
     //   "savePicture": {
     //     "value": (imageData) => {
