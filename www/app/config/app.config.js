@@ -98,7 +98,7 @@ angular.module('bandstagram')
             })
             
             .state('fan.search.details', {
-                url: '/:bandFBID',
+                url: '/:bandUID',
                 parent: 'fan',
                 authRequired: "fan",
                 views: {

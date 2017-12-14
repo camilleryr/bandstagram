@@ -1,6 +1,14 @@
 <ion-view view-title="HOME">
     <ion-content class="padding">
-      HOME
+        <ion-list>
+            <div class="list" ng-repeat="song in songs">
+                <a class="item item-thumbnail-left" ng-click="togglePlay($index)">
+                    <img src={{song.imageURL}}>
+                    <h2>{{song.songName}}</h2>
+                    <p>{{song.songDescription}}</p>
+                </a>
+            </div class="list">
+        </ion-list>
     </ion-content>
   </ion-view>
   

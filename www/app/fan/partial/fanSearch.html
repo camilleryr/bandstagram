@@ -7,7 +7,7 @@
     <ion-list>
       <ion-item ng-repeat="band in bandTable | filter: query">
 
-        <a ng-click="showDetail(band.id)"><h2>{{ band.bandName }}</h2></a>
+        <a ng-click="showDetail(band.uid)"><h2>{{ band.bandName }}</h2></a>
 
         <ion-option-button class="button-positive" ng-click="follow(band.uid)">
         Follow
