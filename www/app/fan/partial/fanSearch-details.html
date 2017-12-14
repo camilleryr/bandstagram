@@ -1,0 +1,21 @@
+<ion-view view-title="BAND DETAIL">
+    <ion-content class="padding">
+        <h1>{{band.bandName}}</h1>
+        <h3>{{band.location}}</h3>
+        <button class="button button-block button-passive" ng-click="followBand()">
+            Follow
+        </button>
+
+        <ion-list>
+            <div class="list" ng-repeat="song in songs">
+                <a class="item item-thumbnail-left" ng-click="togglePlay($index)">
+                    <img src={{song.imageURL}}>
+                    <h2>{{song.songName}}</h2>
+                    <p>{{song.songDescription}}</p>
+                </a>
+            </div class="list">
+
+
+
+    </ion-content>
+</ion-view>

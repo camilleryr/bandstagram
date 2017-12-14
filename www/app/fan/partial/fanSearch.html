@@ -1,5 +1,19 @@
 <ion-view view-title="SEARCH FOR BAND">
   <ion-content class="padding">
-    SEARCH FOR BAND
+    <label class="item item-input item-floating-label">
+      <span class="input-label">Search for Bands</span>
+      <input type="text" placeholder="Search for Bands" ng-model="query.bandName">
+    </label>
+    <ion-list>
+      <ion-item ng-repeat="band in bandTable | filter: query">
+
+        <a ng-click="showDetail(band.id)"><h2>{{ band.bandName }}</h2></a>
+
+        <ion-option-button class="button-positive" ng-click="follow(band.uid)">
+        Follow
+        </ion-option-button>
+
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>
