@@ -1,7 +1,7 @@
 angular.module('bandstagram')
 .controller('bandHomeCtrl', function($scope, $state, databaseFactory) {
 
-    $scop.$on('$ionicView.beforeEnter', 
+    $scope.$on('$ionicView.beforeEnter', 
         function () {
             $scope.bandId = firebase.auth().currentUser.uid
         

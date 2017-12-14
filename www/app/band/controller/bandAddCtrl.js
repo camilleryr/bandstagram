@@ -96,7 +96,9 @@ angular.module('bandstagram')
         $scope.post = function () {
             $scope.recordingInfo.bandUID = firebase.auth().currentUser.uid
             console.log(JSON.stringify($scope.recordingInfo))
-            databaseFactory.postRecordingInfo($scope.recordingInfo)
+            databaseFactory.postRecordingInfo($scope.recordingInfo).then(
+                $state.go('band.home', {}, {reload: true})
+            )
         }
 
         $scope.recording = Object.create(null, {
