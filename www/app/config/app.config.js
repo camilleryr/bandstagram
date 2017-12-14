@@ -13,7 +13,7 @@ angular.module('bandstagram')
                 cordova.plugins.Keyboard.disableScroll(true);
             }
             if (window.StatusBar) {
-                StatusBar.styleDefault();
+                StatusBar.overlaysWebView(false)
             }
         });
 
@@ -93,6 +93,18 @@ angular.module('bandstagram')
                     'fan-search': {
                         templateUrl: 'app/fan/partial/fanSearch.html',
                         controller: 'fanSearchCtrl',
+                    }
+                }
+            })
+            
+            .state('fan.search.details', {
+                url: '/:bandFBID',
+                parent: 'fan',
+                authRequired: "fan",
+                views: {
+                    'fan-search': {
+                        templateUrl: 'app/fan/partial/fanSearch-details.html',
+                        controller: 'bandDetailsCtrl',
                     }
                 }
             })

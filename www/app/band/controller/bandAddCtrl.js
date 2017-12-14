@@ -29,7 +29,7 @@ angular.module('bandstagram')
                     $scope.srcImage = "data:image/jpeg;base64," + imageData;
                     
                     let storageRef = firebase.storage().ref();
-                    let fileRef = storageRef.child("images/test.jpeg")
+                    let fileRef = storageRef.child(`images/${firebase.auth().currentUser.uid}${Date.now()}.jpeg`)
 
                     let uploadImageTask = fileRef.putString($scope.srcImage, 'data_url')
 

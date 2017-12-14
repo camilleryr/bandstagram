@@ -1,104 +1,37 @@
 angular.module('bandstagram')
-  .factory("mediaFactory", function ($state, authFactory, $ionicPlatform) {
-
-    let storageRef = firebase.storage().ref()
-
+  .factory("mediaFactory", function ($cordovaMedia) {
     return Object.create(null, {
+      "mediaURL" : {"value": null, "writable": true, "enumerable": true},
 
-      "photoOptions": {
-        "value":  function() {
-          return {
-              quality: 80,
-              destinationType: Camera.DestinationType.DATA_URL,
-              sourceType: Camera.PictureSourceType.CAMERA,
-              allowEdit: true,
-              encodingType: Camera.EncodingType.JPEG,
-              targetWidth: 250,
-              targetHeight: 250,
-              popoverOptions: CameraPopoverOptions,
-              saveToPhotoAlbum: false
-            }
-          }
-      }
+      "mediaObject" : {"value": { "media" : { "src" : false } }, "writable": true, "enumerable": true},
 
-    //   "savePicture": {
-    //     "value": (imageData) => {
+      "currentlyPlaying" : {"value": false, "writable": true, "enumerable": true},
 
-    //       let fileRef = storageRef.child("images/" + currentUserData.uid + Date.now() + ".jpeg");
-    //       let uploadTask = fileRef.putString(imageData, 'data_url')
-    //     }
-    //   },
+      "togglePlay": {"value": function(mediaURL) {
+        this.mediaURL = mediaURL
 
-    //   "startRecording": {
-    //     "value": () => {
-    //       let name = "cdvfile://localhost/temporary/" + Date.now() + ".m4a"
-    //       let newRecording = $cordovaMedia.newMedia(name)
+        if (!this.currentlyPlaying && this.mediaURL === this.mediaObject.media.src){
+          this.playRecording()
+        }
 
-    //       // Record audio
-    //       mediaRec.startRecord();
-    //     }
-    //   },
+        if (this.currentlyPlaying){
+          console.log("Stop")
+          this.mediaObject.stop()
+          this.currentlyPlaying = false
+        }
 
-    //   "stopRecording": {
-    //     "value": mediaObject => mediaObject.stopRecord()
-    //   },
-
-    //   "playAudio": {
-    //     "value": {}
-    //   },
-
-    //   "stopAudio": {
-    //     "value": {}
-    //   },
-
-    //   "saveRecording": {
-    //     "value": {}
-    //   // },
-
-    //   "uploadWatch": {
-    //     "value": () => {
-    //       // Listen for state changes, errors, and completion of the upload.
-    //       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-    //         function (snapshot) {
-    //           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-    //           var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    //           console.log('Upload is ' + progress + '% done');
-    //           switch (snapshot.state) {
-    //             case firebase.storage.TaskState.PAUSED: // or 'paused'
-    //               console.log('Upload is paused');
-    //               break;
-    //             case firebase.storage.TaskState.RUNNING: // or 'running'
-    //               console.log('Upload is running');
-    //               break;
-    //           }
-    //         }, function (error) {
-
-    //           // A full list of error codes is available at
-    //           // https://firebase.google.com/docs/storage/web/handle-errors
-    //           switch (error.code) {
-    //             case 'storage/unauthorized':
-    //               // User doesn't have permission to access the object
-    //               break;
-
-    //             case 'storage/canceled':
-    //               // User canceled the upload
-    //               break;
-
-    //             case 'storage/unknown':
-    //               // Unknown error occurred, inspect error.serverResponse
-    //               break;
-    //           }
-    //         }, function () {
-    //           // Upload completed successfully, now we can get the download URL
-    //           var downloadURL = uploadTask.snapshot.downloadURL;
-    //           console.log(downloadURL)
-    //           // })
-    //         });
-
-    //     }, function(err) {
-    //       // error
-    //     }
-    //   }
+        if (this.mediaURL !== this.mediaObject.media.src){
+          this.playRecording()
+        }
+      }},
+      
+      "playRecording" : {"value": function () {
+        console.log("Play")
+        this.currentlyPlaying = true
+        this.mediaObject = $cordovaMedia.newMedia(this.mediaURL)
+        console.log(JSON.stringify(this.mediaObject))
+        this.mediaObject.play();
+      }}
     })
   })
 
