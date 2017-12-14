@@ -1,17 +1,18 @@
 angular.module('bandstagram')
 .controller('bandDetailsCtrl', function($scope, $state, databaseFactory, $stateParams, mediaFactory) {
 
-    let bandFBID = $stateParams.bandFBID.slice(1)
+    let bandUID = $stateParams.bandUID.slice(1)
 
-    databaseFactory.getBand(bandFBID)
-        .then(band => $scope.band = band)
-        .then(() => databaseFactory.getSongsByBand($scope.band.uid))
-        .then(songs => $scope.songs = songs)
+    databaseFactory.getBand(bandUID).then(band => $scope.band=Object.values(band)[0])
+    databaseFactory.getSongsByBand(bandUID).then(songs => $scope.songs = songs)
+
+
 
     $scope.togglePlay = index => {
+        console.log($scope.band)
         console.log($scope.songs[index].recordingURL)
         mediaFactory.togglePlay($scope.songs[index].recordingURL)
     }
 
-    $scope.followBand = () => databaseFactory.followBand($scope.band.uid)
+    $scope.followBand = () => databaseFactory.followBand(bandUID)
 })
