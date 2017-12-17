@@ -1,6 +1,6 @@
 <ion-view view-title="ADD NEW RECORDING">
   <ion-content class="padding">
-    <img ng-src="{{srcImage}}" id="srcImage" width="250" height="250" style="display: block; margin: 0 auto;" />
+    <img ng-src="{{srcImage}}" width="350" height="350" style="display: block; margin: 0 auto;" />
     <button class="button button-block button-positive" ng-click="takePicture()">
         Add Photo
     </button>
@@ -16,7 +16,7 @@
       <button class="button button-block button-balanced" ng-click="openModal()">
           Add Recording
       </button>
-      <button class="button button-block button-assertive" ng-click="post()">
+      <button class="button button-block button-assertive" ng-click="recording.post()">
           Post
       </button>
 

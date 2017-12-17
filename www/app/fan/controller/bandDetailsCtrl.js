@@ -1,5 +1,5 @@
 angular.module('bandstagram')
-.controller('bandDetailsCtrl', function($scope, $state, databaseFactory, $stateParams, mediaFactory) {
+.controller('bandDetailsCtrl', function($scope, $state, databaseFactory, $stateParams, audioFactory) {
 
     let bandUID = $stateParams.bandUID.slice(1)
 
@@ -11,7 +11,7 @@ angular.module('bandstagram')
     $scope.togglePlay = index => {
         console.log($scope.band)
         console.log($scope.songs[index].recordingURL)
-        mediaFactory.togglePlay($scope.songs[index].recordingURL)
+        audioFactory.togglePlay($scope.songs[index].recordingURL)
     }
 
     $scope.followBand = () => databaseFactory.followBand(bandUID)

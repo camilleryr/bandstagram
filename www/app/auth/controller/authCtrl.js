@@ -5,8 +5,9 @@ angular.module('bandstagram')
 
         $scope.auth = {
             "email": null,
+            "password": null,
             "account": null,
-            "password": null
+            "photoURL": null
         }
 
         $scope.userInfo = {

@@ -46,6 +46,7 @@ angular.module('bandstagram')
 
 
             .state('band.home', {
+                cache: false,
                 url: '/home',
                 authRequired: "band",
                 views: {
@@ -57,6 +58,7 @@ angular.module('bandstagram')
             })
 
             .state('band.add', {
+                cache: false,
                 url: '/add',
                 authRequired: "band",
                 views: {
@@ -76,6 +78,7 @@ angular.module('bandstagram')
 
 
             .state('fan.home', {
+                cache: false,
                 url: '/home',
                 authRequired: "fan",
                 views: {
@@ -87,6 +90,7 @@ angular.module('bandstagram')
             })
 
             .state('fan.search', {
+                cache: false,
                 url: '/search',
                 authRequired: "fan",
                 views: {

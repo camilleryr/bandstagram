@@ -67,6 +67,7 @@ angular
             },
             "postRecordingInfo": {
                 value: function (recordingInfo) {
+                    recordingInfo.timeStamp = Date.now()
                     return firebase.auth().currentUser.getIdToken(true)
                         .then(idToken => {
                             return $http({
@@ -104,7 +105,7 @@ angular
                         }
                     )
                 }
-            },
+            }
         }
     )
 })
