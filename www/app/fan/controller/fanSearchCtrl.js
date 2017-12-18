@@ -1,9 +1,10 @@
 angular.module('bandstagram')
-.controller('fanSearchCtrl', function($scope, $state, databaseFactory) {
+.controller('fanSearchCtrl', function($scope, $state, databaseFactory, $timeout) {
     
     $scope.bandTable = []
     
     databaseFactory.getTable("bandTable").then(response => {
+        $timeout(()=>console.log(),100)
         $scope.bandTable = response
     })
 

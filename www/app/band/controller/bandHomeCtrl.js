@@ -1,16 +1,19 @@
 angular.module('bandstagram')
-.controller('bandHomeCtrl', function($scope, $state, databaseFactory) {
+    .controller('bandHomeCtrl', function ($scope, $state, databaseFactory, $timeout) {
 
-    $scope.$on('$ionicView.beforeEnter', 
-        function () {
-            $scope.bandId = firebase.auth().currentUser.uid
-        
-            databaseFactory.getBand($scope.bandId)
-                .then(band => $scope.bandInfo = band)
-                .then(() => databaseFactory.getSongsByBand($scope.bandId))
-                .then(songs => $scope.songs = songs)
-                .then(() => {console.log($scope.bandId); console.log($scope.bandInfo); console.log($scope.songs)})
 
-        })
+        $scope.bandId = firebase.auth().currentUser.uid
 
-})
+        databaseFactory.getBand($scope.bandId)
+            .then(band => {
+                $timeout(function(){console.log()},100)
+                $scope.bandInfo = band
+            })
+            
+        databaseFactory.getSongsByBand($scope.bandId)
+            .then(songs => {
+                $timeout(function(){console.log()},100)
+                $scope.songs = songs
+            })
+            
+    })

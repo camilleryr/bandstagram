@@ -9,7 +9,7 @@
         <ion-list>
             <div class="list" ng-repeat="song in songs">
                 <a class="item item-thumbnail-left" ng-click="togglePlay($index)">
-                    <img src={{song.imageURL}}>
+                    <img ng-src={{song.imageURL}}>
                     <h2>{{song.songName}}</h2>
                     <p>{{song.songDescription}}</p>
                 </a>
