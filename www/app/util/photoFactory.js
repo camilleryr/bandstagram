@@ -23,10 +23,8 @@ angular.module('bandstagram')
 
                         let storageRef = firebase.storage().ref();
                         let fileRef = storageRef.child(`images/${firebase.auth().currentUser.uid}${Date.now()}.jpeg`)
-                        console.log("1")
                         
                         return fileRef.putString(imageData, 'data_url').then(result => {
-                            console.log("2")
                             return fileRef.getDownloadURL()
                         })
                     })

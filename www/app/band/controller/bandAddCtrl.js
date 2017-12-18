@@ -9,9 +9,7 @@ angular.module('bandstagram')
 
         $scope.takePicture = function(){
             photoFactory.takePhoto($scope).then(result => {
-                console.log("3")
                 $scope.recordingInfo.imageURL = result
-                console.log("4")
             })
         }
         
@@ -43,7 +41,11 @@ angular.module('bandstagram')
                 "value": () => audioFactory.reviewRecording()
             },
             "save": {
-                "value": () => audioFactory.save($scope)
+                "value": () => audioFactory.save().then(result => {
+                    console.log(result)
+                    $scope.recordingInfo.recordingURL = result
+                    $scope.closeModal()
+                })
             },
             "post": {
                 "value": () => {
