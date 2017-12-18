@@ -1,10 +1,12 @@
 angular.module('bandstagram')
     .factory("photoFactory", function ($cordovaCamera) {
         return Object.create(null, {
-            "takePhoto": {
-                "value": ($scope) => {
+            "placeholder" : {
+                "value" : "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fcnet4.cbsistatic.com%2Ffly%2F893-fly%2Fbundles%2Fcnetcss%2Fimages%2Fplaceholder%2Fimage_placeholder.png&f=1", "enumerable": true
+            },
 
-                    this.$scope = $scope
+            "takePhoto": {
+                "value": () => {
 
                     let options =
                         {

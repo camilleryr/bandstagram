@@ -3,12 +3,12 @@ angular.module('bandstagram')
 
         // let refrenceUrls = {}
 
-        $scope.srcImage = "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fcnet4.cbsistatic.com%2Ffly%2F893-fly%2Fbundles%2Fcnetcss%2Fimages%2Fplaceholder%2Fimage_placeholder.png&f=1"
+        $scope.placeholder = photoFacory.placeholder
 
         $scope.recordingInfo = {}
 
         $scope.takePicture = function(){
-            photoFactory.takePhoto($scope).then(result => {
+            photoFactory.takePhoto().then(result => {
                 $scope.recordingInfo.imageURL = result
             })
         }

@@ -1,13 +1,21 @@
 
 
 angular.module('bandstagram')
-    .controller('authCtrl', function ($scope, $state, databaseFactory, authFactory, $ionicModal) {
+    .controller('authCtrl', function ($scope, $state, databaseFactory, authFactory, photoFactory, $ionicModal) {
+
+        $scope.placeholder = photoFactory.placeholder
+
+        $scope.takePicture = function () {
+            photoFactory.takePhoto().then(result => {
+                console.log(result)
+                $scope.userInfo.photoURL = result
+            })
+        }
 
         $scope.auth = {
             "email": null,
             "password": null,
             "account": null,
-            "photoURL": null
         }
 
         $scope.userInfo = {
@@ -22,7 +30,10 @@ angular.module('bandstagram')
         }
 
         $scope.registerUser = function () {
-            $scope.openModal()
+            authFactory.registerWithEmail($scope.auth).then(user => {
+                $scope.user = user
+                $scope.openModal()
+            })
         }
 
         $scope.console = function () {
@@ -45,15 +56,14 @@ angular.module('bandstagram')
         $scope.closeModal = function (bool) {
             $scope.modal.hide();
             if (bool) {
-                authFactory.registerWithEmail($scope.auth)
-                    .then(function (user) {
-                        user.updateProfile({ "displayName" : $scope.auth.account })
-                        $scope.userInfo.uid = user.uid
-                        databaseFactory.postUserInfo($scope.auth.account, $scope.userInfo)
-                        authFactory.logout()
-                        $scope.logMeIn()
-                    })
+                console.log("save")
+                $scope.user.updateProfile({ "displayName": $scope.auth.account })
+                $scope.userInfo.uid = $scope.user.uid
+                console.log($scope.userInfo)
+                databaseFactory.postUserInfo($scope.auth.account, $scope.userInfo)
+                authFactory.logout()
+                $scope.logMeIn()
             }
-        };
-    });
+        }
+    })
 

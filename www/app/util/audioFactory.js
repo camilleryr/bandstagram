@@ -32,7 +32,6 @@ angular.module('bandstagram')
           console.log("Play")
           this.currentlyPlaying = true
           this.mediaObject = $cordovaMedia.newMedia(this.mediaURL)
-          console.log(JSON.stringify(this.mediaObject))
           this.mediaObject.play();
         }
       },
@@ -45,14 +44,20 @@ angular.module('bandstagram')
 
       "reviewRecording": {
         "value": function () {
-          console.log("src")
-          console.log(this.recordingObj.media.src)
-          this.togglePlay(this.recordingObj.media.src)
+          if(!this.currentlyPlaying){
+            this.currentlyPlaying = true
+            this.recordingObj.play()
+          } else {
+            this.currentlyPlaying = false
+            this.recordingObj.stop()
+          }
         }
       },
       
       "start": {
         "value": function() {
+
+          this.currentlyPlaying = false
 
           this.recordingUID = firebase.auth().currentUser.uid + Date.now() + ".m4a"
 
