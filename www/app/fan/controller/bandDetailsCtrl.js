@@ -8,10 +8,8 @@ angular.module('bandstagram')
 
 
 
-    $scope.togglePlay = index => {
-        console.log($scope.band)
-        console.log($scope.songs[index].recordingURL)
-        audioFactory.togglePlay($scope.songs[index].recordingURL)
+    $scope.togglePlay = recordingURL => {
+        audioFactory.togglePlay(recordingURL)
     }
 
     $scope.followBand = () => databaseFactory.followBand(bandUID)

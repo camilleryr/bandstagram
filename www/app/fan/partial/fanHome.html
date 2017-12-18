@@ -1,23 +1,28 @@
 <ion-view view-title="HOME">
-    <ion-content class="padding">
-        <ion-list>
-            <div class="list" ng-repeat="song in filteredRecordings">
-                <div class="item item-avatar">
-                    <img ng-src={{song.imageURL}}>                    
-                    <h2>{{song.bandName}}</h2>
-                    <p>{{song.songName}}</p>
-                  </div>
-                
-                  <div class="item item-image">
-                    <img ng-src={{song.imageURL}}>
-                  </div>
-                
-                  <a class="item item-icon-left assertive" href="#">
-                    <i class="icon ion-music-note"></i>
-                    Start listening
-                  </a>
-            </div class="list">
-        </ion-list>
-    </ion-content>
-  </ion-view>
-  
+  <ion-content class="padding">
+    <ion-list>
+
+      <img class="user_photo" ng-src="{{fanInfo.photoURL}}" />
+      <div class="user_name">
+        <h1>{{fanInfo.fanName}}</h1>
+      </div>
+
+      <div class="list" ng-repeat="song in filteredRecordings">
+        <div class="item item-avatar">
+          <img ng-src={{song.photoURL}}>
+          <h2>{{song.bandName}}</h2>
+          <p>{{song.songName}}</p>
+        </div>
+
+        <div class="item item-image">
+          <img ng-src={{song.imageURL}}>
+        </div>
+
+        <a class="item item-icon-left assertive" ng-click="togglePlay(song.recordingURL)">
+          <i class="icon ion-music-note"></i>
+          Start listening
+        </a>
+      </div class="list">
+    </ion-list>
+  </ion-content>
+</ion-view>

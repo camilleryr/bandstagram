@@ -17,39 +17,35 @@ angular.module('bandstagram')
             "password": null,
             "account": null,
         }
-
-        $scope.userInfo = {
-            "uid": null
-        }
-
-
+        
         $scope.logMeIn = function () {
             authFactory.authenticate($scope.auth).then(function (didLogin) {
-                $scope.login = {}
+                $scope.auth = {}
             })
         }
-
+        
         $scope.registerUser = function () {
             authFactory.registerWithEmail($scope.auth).then(user => {
                 $scope.user = user
                 $scope.openModal()
             })
         }
-
+        
         $scope.console = function () {
             console.log($scope.userInfo)
             console.log($scope.auth)
         }
-
-
+        
+        
         $ionicModal.fromTemplateUrl('app/auth/partial/modal.html', {
             scope: $scope,
             animation: 'slide-in-up'
         }).then(function (modal) {
             $scope.modal = modal;
         });
-
+        
         $scope.openModal = function () {
+            $scope.userInfo = {}
             $scope.modal.show();
         };
 

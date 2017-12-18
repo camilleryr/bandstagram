@@ -39,6 +39,19 @@ angular
                     })
                 }
             },
+            "getFan": {
+                value: function (userUID) {
+                    return firebase.auth().currentUser.getIdToken(true)
+                    .then(idToken => {
+                        return $http({
+                            method: "GET",
+                            url: `${FIREBASE_CONFIG.databaseURL}/fanTable/.json?auth=${idToken}&orderBy="uid"&equalTo="${userUID}"`
+                        }).then(response => {
+                            return response.data       
+                        })
+                    })
+                }
+            },
             "getSongsByBand": {
                 value: function (uid) {
                     return firebase.auth().currentUser.getIdToken(true)

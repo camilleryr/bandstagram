@@ -1,24 +1,29 @@
 <ion-view view-title="HOME">
-    <ion-content class="padding">
-        <ion-list>
-            <div class="list" ng-repeat="song in songs" ui-sref-opts="{reload: true, inherit: false}">
+  <ion-content class="padding">
+    <ion-list>
 
-                      <div class="item item-avatar">
-                        <img ng-src={{song.imageURL}}>
-                        <h2>{{song.songName}}</h2>
-                      </div>
-                    
-                      <div class="item item-image">
-                        <img ng-src={{song.imageURL}}>
-                      </div>
-                    
-                      <a class="item item-icon-left assertive" href="#">
-                        <i class="icon ion-thumbsup"></i>
-                        Thumbs Up
-                      </a>
+        <img class="user_photo" ng-src="{{bandInfo.photoURL}}"/>
+        <div class="user_name">
+          <h1>{{bandInfo.bandName}}</h1>
+        </div>
 
-            </div>
-        </ion-list>
-    </ion-content>
-  </ion-view>
-  
+      <div class="list" ng-repeat="song in songs | orderBy: '-timeStamp'" ui-sref-opts="{reload: true, inherit: false}">
+
+        <div class="item item-avatar">
+          <img ng-src={{bandInfo.photoURL}}>
+          <h2>{{song.songName}}</h2>
+        </div>
+
+        <div class="item item-image">
+          <img ng-src={{song.imageURL}}>
+        </div>
+
+        <a class="item item-icon-left assertive" href="#">
+          <i class="icon ion-thumbsup"></i>
+          Thumbs Up
+        </a>
+
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>
