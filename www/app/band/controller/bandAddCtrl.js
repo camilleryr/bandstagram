@@ -7,10 +7,12 @@ angular.module('bandstagram')
 
         $scope.recordingInfo = {}
 
-        $scope.imageUrl = ''
-
         $scope.takePicture = function(){
-            photoFactory.takePhoto($scope)
+            photoFactory.takePhoto($scope).then(result => {
+                console.log("3")
+                $scope.recordingInfo.imageURL = result
+                console.log("4")
+            })
         }
         
 
@@ -51,7 +53,7 @@ angular.module('bandstagram')
                         $state.go('band.home', {}, { reload: true })
                     )
                 }
-            },
+            }
         })
     })
 
