@@ -22,10 +22,10 @@
             <i class="icon ion-music-note"></i>
             Start listening
           </a>
-          <a class="icon-right item-icon" ng-class="song.vote === -1 ? 'assertive' : 'calm'" ng-click="vote($index, -1)" style="display:inline-block">
+          <a class="icon-right item-icon" ng-class="song.vote === -1 ? 'assertive' : 'calm'" ng-click="vote(song.id, -1)" style="display:inline-block">
             <i class="icon ion-thumbsdown"></i>
           </a>
-          <a class="icon-right item-icon" ng-click="vote($index, 1)" ng-class="song.vote === 1 ? 'assertive' : 'calm'" style="display:inline-block">
+          <a class="icon-right item-icon" ng-click="vote(song.id, 1)" ng-class="song.vote === 1 ? 'assertive' : 'calm'" style="display:inline-block">
             <i class="icon ion-thumbsup"></i>
           </a>
         </div>

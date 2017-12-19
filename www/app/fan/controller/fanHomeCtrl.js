@@ -35,8 +35,10 @@ angular.module('bandstagram')
       audioFactory.togglePlay(recordingURL)
     }
 
-    $scope.vote = (index, vote) => {
-      let votePromise
+    $scope.vote = (songID, vote) => {
+      let votePromise = null
+      let index = $scope.filteredRecordings.map(function(recording) { return recording.id }).indexOf(songID)
+
       if (!$scope.filteredRecordings[index].hasOwnProperty('vote')) {
         $scope.filteredRecordings[index].vote = vote
         votePromise = databaseFactory.vote(
@@ -46,13 +48,16 @@ angular.module('bandstagram')
             "vote": vote
           }
         )
+
       } else if ($scope.filteredRecordings[index].vote !== vote) {
         $scope.filteredRecordings[index].vote = vote
         let voteID = voteTable.find(vote => vote.recordingID === $scope.filteredRecordings[index].id).id
         votePromise = databaseFactory.changeVote(voteID, vote)
+
       } else {
+        delete $scope.filteredRecordings[index].vote
         let voteID = voteTable.find(vote => vote.recordingID === $scope.filteredRecordings[index].id).id
-        votePromise = databaseFactory.changeVote(voteID, vote)
+        votePromise = databaseFactory.deleteVote(voteID)
       }
 
       votePromise.then(voted =>
