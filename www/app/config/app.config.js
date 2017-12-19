@@ -19,7 +19,7 @@ angular.module('bandstagram')
 
         $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
             var user = firebase.auth().currentUser;
-            if (toState.authRequired && ( !user || toState.authRequired !== user.displayName)) { //Assuming the AuthService holds authentication logic
+            if (toState.authRequired && (!user || toState.authRequired !== user.displayName)) { //Assuming the AuthService holds authentication logic
                 // User isn’t authenticated
                 $state.transitionTo("auth");
                 event.preventDefault();
@@ -27,7 +27,11 @@ angular.module('bandstagram')
         });
     })
 
-    .config(function ($stateProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+
+        $ionicConfigProvider.backButton.previousTitleText(false);
+        $ionicConfigProvider.backButton.icon('ion-chevron-left');
+        $ionicConfigProvider.backButton.text('')
 
         $stateProvider
 
@@ -100,7 +104,7 @@ angular.module('bandstagram')
                     }
                 }
             })
-            
+
             .state('fan.search.details', {
                 url: '/:bandUID',
                 parent: 'fan',
