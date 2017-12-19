@@ -1,5 +1,5 @@
 angular.module('bandstagram')
-    .controller('bandHomeCtrl', function ($scope, $state, databaseFactory, $timeout) {
+    .controller('bandHomeCtrl', function ($scope, $state, databaseFactory, $timeout, $filter, $q) {
 
 
         let bandId = firebase.auth().currentUser.uid
@@ -9,11 +9,13 @@ angular.module('bandstagram')
                 $timeout(function(){console.log()},100)
                 $scope.bandInfo = Object.values(band)[0]
             })
-            
-        databaseFactory.getSongsByBand(bandId)
-            .then(songs => {
-                $timeout(function(){console.log()},100)
-                $scope.songs = songs
-            })
-            
+        
+        let requests = [databaseFactory.getSongsByBand(bandId), databaseFactory.getTable("voteTable")]
+
+        $q.all(requests).then(results => {
+            let songs = results[0]
+            let votes = results[1]
+            $scope.songs = $filter('bandHomeFilter')(songs, votes)
+            console.log($scope.songs)
+        })    
     })

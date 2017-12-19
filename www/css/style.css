@@ -19,3 +19,14 @@
 .user_name h1 {
     margin-top: 10px;
 }
+
+.icon-left {
+    float: left;
+    font-size: 120%;
+}
+
+.icon-right {
+    float: right;
+    margin-left: 20px;
+    font-size: 160%;
+}

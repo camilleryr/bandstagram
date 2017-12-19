@@ -18,9 +18,11 @@
           <img ng-src={{song.imageURL}}>
         </div>
 
-        <a class="item item-icon-left assertive" href="#">
+        <a class="item assertive">
+          {{song.vote.up}}
           <i class="icon ion-thumbsup"></i>
-          Thumbs Up
+          {{song.vote.down}}
+          <i class="icon ion-thumbsdown"></i>
         </a>
 
       </div>
