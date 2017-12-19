@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
 
-    <link rel="manifest" href="manifest.json">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title></title>
 
-    <!-- un-comment this code to enable service worker
+  <link rel="manifest" href="manifest.json">
+
+  <!-- un-comment this code to enable service worker
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('service-worker.js')
@@ -16,51 +17,55 @@
       }
     </script>-->
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+  <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
-    <!-- ionic/angularjs js / Firebase / ngCordova -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <script src="lib/firebase/firebase.js"></script>
-    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
-    
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
+  <!-- ionic/angularjs js / Firebase / ngCordova -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <script src="lib/firebase/firebase.js"></script>
+  <script src="lib/ngCordova/dist/ng-cordova.js"></script>
 
-    <!-- config js files -->
-    <script src="app/app.js"></script>
-    <script src="app/config/app.constant.js"></script>
-    <script src="app/config/app.config.js"></script>
-    
-    <!-- controller js files -->
-    <script src="app/util/authFactory.js"></script>
-    <script src="app/util/audioFactory.js"></script>
-    <script src="app/util/photoFactory.js"></script>
-    <script src="app/util/databaseFactory.js"></script>
-    <script src="app/util/fanHomeFilter.js"></script>
-    <script src="app/util/bandHomeFilter.js"></script>
-    
-    <script src="app/nav/navCtrl.js"></script>
-    <script src="app/auth/controller/authCtrl.js"></script>
-    <script src="app/band/controller/bandAddCtrl.js"></script>
-    <script src="app/band/controller/bandHomeCtrl.js"></script>
-    <script src="app/fan/controller/fanSearchCtrl.js"></script>
-    <script src="app/fan/controller/fanHomeCtrl.js"></script>
-    <script src="app/fan/controller/bandDetailsCtrl.js"></script>
-    
-  </head>
-  <body ng-app="bandstagram">
-    
-    <ion-nav-bar ng-controller="navCtrl" >
-      <ion-nav-buttons side="right">
-          <button class="button" ng-click="logoutUser()">Logout</button>
-      </ion-nav-buttons>
-    </ion-nav-bar>
-    
-    <ion-nav-view></ion-nav-view>
-  </body>
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="cordova.js"></script>
+
+  <!-- config js files -->
+  <script src="app/app.js"></script>
+  <script src="app/config/app.constant.js"></script>
+  <script src="app/config/app.config.js"></script>
+
+  <!-- controller js files -->
+  <script src="app/util/authFactory.js"></script>
+  <script src="app/util/audioFactory.js"></script>
+  <script src="app/util/photoFactory.js"></script>
+  <script src="app/util/databaseFactory.js"></script>
+  <script src="app/util/fanHomeFilter.js"></script>
+  <script src="app/util/bandHomeFilter.js"></script>
+
+  <script src="app/nav/navCtrl.js"></script>
+  <script src="app/auth/controller/authCtrl.js"></script>
+  <script src="app/band/controller/bandAddCtrl.js"></script>
+  <script src="app/band/controller/bandHomeCtrl.js"></script>
+  <script src="app/fan/controller/fanSearchCtrl.js"></script>
+  <script src="app/fan/controller/fanHomeCtrl.js"></script>
+  <script src="app/fan/controller/bandDetailsCtrl.js"></script>
+
+</head>
+
+<body ng-app="bandstagram">
+
+  <ion-nav-bar class="bar-dark" ng-controller="navCtrl">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+    <ion-nav-buttons side="right">
+      <button class="button" ng-click="logoutUser()">Logout</button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-nav-view></ion-nav-view>
+</body>
+
 </html>
