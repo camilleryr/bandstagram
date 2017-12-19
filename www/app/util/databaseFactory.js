@@ -7,49 +7,71 @@ angular
             "getTable": {
                 value: function (tableName) {
                     return firebase.auth().currentUser.getIdToken(true)
-                    .then(idToken => {
-                        return $http({
-                            method: "GET",
-                            url: `${FIREBASE_CONFIG.databaseURL}/${tableName}/.json?auth=${idToken}`
-                        }).then(response => {
-                            const data = response.data
-        
-                            let dataArray = 
-                                Object.keys(data)
-                                    .map(key => {
-                                        data[key].id = key
-                                        return data[key]
-                                    })
-        
-                            return dataArray
+                        .then(idToken => {
+                            return $http({
+                                method: "GET",
+                                url: `${FIREBASE_CONFIG.databaseURL}/${tableName}/.json?auth=${idToken}`
+                            }).then(response => {
+                                const data = response.data
+
+                                let dataArray =
+                                    Object.keys(data)
+                                        .map(key => {
+                                            data[key].id = key
+                                            return data[key]
+                                        })
+
+                                return dataArray
+                            })
                         })
-                    })
                 }
             },
             "getBand": {
                 value: function (bandUID) {
                     return firebase.auth().currentUser.getIdToken(true)
-                    .then(idToken => {
-                        return $http({
-                            method: "GET",
-                            url: `${FIREBASE_CONFIG.databaseURL}/bandTable/.json?auth=${idToken}&orderBy="uid"&equalTo="${bandUID}"`
-                        }).then(response => {
-                            return response.data       
+                        .then(idToken => {
+                            return $http({
+                                method: "GET",
+                                url: `${FIREBASE_CONFIG.databaseURL}/bandTable/.json?auth=${idToken}&orderBy="uid"&equalTo="${bandUID}"`
+                            }).then(response => {
+                                return response.data
+                            })
                         })
-                    })
+                }
+            },
+            "getFan": {
+                value: function (userUID) {
+                    return firebase.auth().currentUser.getIdToken(true)
+                        .then(idToken => {
+                            return $http({
+                                method: "GET",
+                                url: `${FIREBASE_CONFIG.databaseURL}/fanTable/.json?auth=${idToken}&orderBy="uid"&equalTo="${userUID}"`
+                            }).then(response => {
+                                return response.data
+                            })
+                        })
                 }
             },
             "getSongsByBand": {
                 value: function (uid) {
                     return firebase.auth().currentUser.getIdToken(true)
-                    .then(idToken => {
-                        return $http({
-                            method: "GET",
-                            url: `${FIREBASE_CONFIG.databaseURL}/recordingTable/.json?auth=${idToken}&orderBy="bandUID"&equalTo="${uid}"`
-                        }).then(response => {
-                            return Object.values(response.data)       
+                        .then(idToken => {
+                            return $http({
+                                method: "GET",
+                                url: `${FIREBASE_CONFIG.databaseURL}/recordingTable/.json?auth=${idToken}&orderBy="bandUID"&equalTo="${uid}"`
+                            }).then(response => {
+                                const data = response.data
+
+                                let dataArray =
+                                    Object.keys(data)
+                                        .map(key => {
+                                            data[key].id = key
+                                            return data[key]
+                                        })
+
+                                return dataArray
+                            })
                         })
-                    })
                 }
             },
             "postUserInfo": {
@@ -62,7 +84,7 @@ angular
                                 data: userInfo
                             })
                         }
-                    )
+                        )
                 }
             },
             "postRecordingInfo": {
@@ -76,6 +98,67 @@ angular
                                 data: recordingInfo
                             })
                         }
+                        )
+                }
+            },
+            "vote": {
+                value: function (vote) {
+                    vote.timeStamp = Date.now()
+                    return firebase.auth().currentUser.getIdToken(true)
+                        .then(idToken => {
+                            return $http({
+                                method: "POST",
+                                url: `${FIREBASE_CONFIG.databaseURL}/voteTable/.json?auth=${idToken}`,
+                                data: vote
+                            })
+                        }
+                        )
+                }
+            },
+            "getVotesByFan": {
+                value: function (fanUID) {
+                    return firebase.auth().currentUser.getIdToken(true)
+                        .then(idToken => {
+                            return $http({
+                                method: "GET",
+                                url: `${FIREBASE_CONFIG.databaseURL}/voteTable/.json?auth=${idToken}&orderBy="fanUID"&equalTo="${fanUID}"`,
+                            }).then(response => {
+                                response = response.data
+                                let dataArray =
+                                    Object.keys(response)
+                                        .map(key => {
+                                            response[key].id = key
+                                            return response[key]
+                                        })
+
+                                return dataArray
+                            })
+                        }
+                    )
+                }
+            },
+            "changeVote": {
+                value: function (voteID, vote) {
+                    return firebase.auth().currentUser.getIdToken(true)
+                        .then(idToken => {
+                            return $http({
+                                method: "PUT",
+                                url: `${FIREBASE_CONFIG.databaseURL}/voteTable/${voteID}/vote/.json?auth=${idToken}`,
+                                data: vote
+                            })
+                        }
+                    )
+                }
+            },
+            "deleteVote": {
+                value: function (voteID) {
+                    return firebase.auth().currentUser.getIdToken(true)
+                        .then(idToken => {
+                            return $http({
+                                method: "DELETE",
+                                url: `${FIREBASE_CONFIG.databaseURL}/voteTable/${voteID}/.json?auth=${idToken}`,
+                            })
+                        }
                     )
                 }
             },
@@ -86,10 +169,10 @@ angular
                             return $http({
                                 method: "POST",
                                 url: `${FIREBASE_CONFIG.databaseURL}/followingTable/.json?auth=${idToken}`,
-                                data: {"bandUID" : bandID, "fanUID" : firebase.auth().currentUser.uid}
+                                data: { "bandUID": bandID, "fanUID": firebase.auth().currentUser.uid }
                             })
                         }
-                    )
+                        )
                 }
             },
             "getFollowing": {
@@ -103,9 +186,9 @@ angular
                                 return Object.keys(response.data).map(key => response.data[key].bandUID)
                             })
                         }
-                    )
+                        )
                 }
             }
         }
-    )
-})
+        )
+    })

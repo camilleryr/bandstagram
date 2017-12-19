@@ -5,10 +5,16 @@
       <input type="text" placeholder="Search for Bands" ng-model="query.bandName">
     </label>
     <ion-list>
-      <ion-item ng-repeat="band in bandTable | filter: query">
 
-        <a ng-click="showDetail(band.uid)"><h2>{{ band.bandName }}</h2></a>
 
+        <ion-item class="item item-thumbnail-left" ng-repeat="band in bandTable | filter: query" ng-click="showDetail(band.uid)">
+            <img ng-src="{{band.photoURL}}" style="border-radius:50%">
+            <h2>{{band.bandName}}</h2>
+            <p>{{band.location}}</p>
+
+        <ion-option-button class="button-calm" ng-click="showDetail(band.uid)">
+        Details
+        </ion-option-button>
         <ion-option-button class="button-positive" ng-click="follow(band.uid)">
         Follow
         </ion-option-button>

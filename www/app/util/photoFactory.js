@@ -15,7 +15,6 @@ angular.module('bandstagram')
                             sourceType: Camera.PictureSourceType.CAMERA,
                             allowEdit: true,
                             encodingType: Camera.EncodingType.JPEG,
-
                             popoverOptions: CameraPopoverOptions,
                             saveToPhotoAlbum: false
                         }

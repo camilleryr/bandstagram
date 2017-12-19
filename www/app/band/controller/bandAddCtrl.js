@@ -3,7 +3,7 @@ angular.module('bandstagram')
 
         // let refrenceUrls = {}
 
-        $scope.placeholder = photoFacory.placeholder
+        $scope.placeholder = photoFactory.placeholder
 
         $scope.recordingInfo = {}
 
