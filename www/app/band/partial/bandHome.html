@@ -7,7 +7,7 @@
           <h1>{{bandInfo.bandName}}</h1>
         </div>
 
-      <div class="list" ng-repeat="song in songs | orderBy: '-timeStamp'" ui-sref-opts="{reload: true, inherit: false}">
+      <div class="list ng-hide" ng-repeat="song in songs | orderBy: '-timeStamp'" ng-click="triggerActionSheet(song)"  ng-hide="song.hide">
 
         <div class="item item-avatar">
           <img ng-src={{bandInfo.photoURL}}>

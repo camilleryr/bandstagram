@@ -98,7 +98,32 @@ angular
                                 data: recordingInfo
                             })
                         }
-                        )
+                    )
+                }
+            },
+            "editRecordingInfo": {
+                value: function (fbID, recordingInfo) {
+                    return firebase.auth().currentUser.getIdToken(true)
+                        .then(idToken => {
+                            return $http({
+                                method: "PATCH",
+                                url: `${FIREBASE_CONFIG.databaseURL}/recordingTable/${fbID}/.json?auth=${idToken}`,
+                                data: recordingInfo
+                            })
+                        }
+                    )
+                }
+            },
+            "deleteRecordingInfo": {
+                value: function (recordingID) {
+                    return firebase.auth().currentUser.getIdToken(true)
+                        .then(idToken => {
+                            return $http({
+                                method: "DELETE",
+                                url: `${FIREBASE_CONFIG.databaseURL}/recordingTable/${recordingID}/.json?auth=${idToken}`,
+                            })
+                        }
+                    )
                 }
             },
             "vote": {
