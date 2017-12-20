@@ -1,0 +1,24 @@
+<ion-view view-title="EDIT RECORDING">
+        <ion-content class="padding">
+          <img ng-src="{{recordingInfo.imageURL}}" width="350" height="350" style="display: block; margin: 0 auto;" />
+          <button class="button button-block button-positive" ng-click="takePicture()">
+              Replace Photo
+          </button>
+          <div class="list">
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Song Name</span>
+              <input type="text" ng-model="recordingInfo.songName">
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Description</span>
+              <input type="text" ng-model="recordingInfo.songDescription">
+            </label>
+            <button class="button button-block button-balanced" ng-click="openModal()">
+                Replace Recording
+            </button>
+            <button class="button button-block button-assertive" ng-click="recording.post() ">
+                Save Edit
+            </button>
+      
+        </ion-content>
+      </ion-view>

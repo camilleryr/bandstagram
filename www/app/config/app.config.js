@@ -61,6 +61,18 @@ angular.module('bandstagram')
                 }
             })
 
+            .state('band.home.details', {
+                url: '/recordingDetails',
+                parent: 'band',
+                authRequired: "band",
+                views: {
+                    'band-home': {
+                        templateUrl: 'app/band/partial/bandHome-details.html',
+                        controller: 'recordingDetailsCtrl',
+                    }
+                }
+            })
+
             .state('band.add', {
                 cache: false,
                 url: '/add',

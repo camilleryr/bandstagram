@@ -30,3 +30,14 @@
     margin-left: 20px;
     font-size: 160%;
 }
+
+
+.ng-hide.ng-hide-add {
+  transform: translateX(0px);
+  transition: all 0.5s ease-in-out;
+}
+
+.ng-hide.ng-hide-add.ng-hide-add-active {
+    transform: translateX(-800px);
+}
+
