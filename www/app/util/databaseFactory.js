@@ -162,6 +162,28 @@ angular
                     )
                 }
             },
+            "getAllVotes": {
+                value: function () {
+                    return firebase.auth().currentUser.getIdToken(true)
+                        .then(idToken => {
+                            return $http({
+                                method: "GET",
+                                url: `${FIREBASE_CONFIG.databaseURL}/voteTable/.json?auth=${idToken}`,
+                            }).then(response => {
+                                response = response.data
+                                let dataArray =
+                                    Object.keys(response)
+                                        .map(key => {
+                                            response[key].id = key
+                                            return response[key]
+                                        })
+
+                                return dataArray
+                            })
+                        }
+                    )
+                }
+            },
             "changeVote": {
                 value: function (voteID, vote) {
                     return firebase.auth().currentUser.getIdToken(true)
@@ -200,7 +222,7 @@ angular
                         )
                 }
             },
-            "getFollowing": {
+            "getFollowingByFan": {
                 value: function (fanUID) {
                     return firebase.auth().currentUser.getIdToken(true)
                         .then(idToken => {
@@ -211,9 +233,22 @@ angular
                                 return Object.keys(response.data).map(key => response.data[key].bandUID)
                             })
                         }
-                        )
+                    )
+                }
+            },
+            "getFollowingByBand": {
+                value: function (bandUID) {
+                    return firebase.auth().currentUser.getIdToken(true)
+                        .then(idToken => {
+                            return $http({
+                                method: "GET",
+                                url: `${FIREBASE_CONFIG.databaseURL}/followingTable/.json?auth=${idToken}&orderBy="bandUID"&equalTo="${bandUID}"`
+                            }).then(response => {
+                                return Object.keys(response.data).map(key => response.data[key].fanUID)
+                            })
+                        }
+                    )
                 }
             }
-        }
-        )
+        })
     })

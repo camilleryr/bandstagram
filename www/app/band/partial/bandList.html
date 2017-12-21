@@ -1,0 +1,25 @@
+<ion-view view-title="HOME">
+  <ion-content class="padding">
+    <ion-list>
+      <div class="list ng-hide" ng-repeat="song in songs | orderBy: '-timeStamp'" ng-click="triggerActionSheet(song)"  ng-hide="song.hide">
+
+        <div class="item item-avatar">
+          <img ng-src={{bandInfo.photoURL}}>
+          <h2>{{song.songName}}</h2>
+        </div>
+
+        <div class="item item-image">
+          <img ng-src={{song.imageURL}}>
+        </div>
+
+        <a class="item assertive">
+          {{song.vote.up}}
+          <i class="icon ion-thumbsup"></i>
+          {{song.vote.down}}
+          <i class="icon ion-thumbsdown"></i>
+        </a>
+
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>

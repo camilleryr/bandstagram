@@ -7,62 +7,26 @@ angular.module('bandstagram')
         databaseFactory.getBand(bandId)
             .then(band => {
                 $timeout(function () { console.log() }, 100)
-                $scope.bandInfo = Object.values(band)[0]
+                dataService.setUserInfo(Object.values(band)[0])
+                $scope.bandInfo = dataService.getUserInfo()
             })
 
-        let requests = [databaseFactory.getSongsByBand(bandId), databaseFactory.getTable("voteTable")]
+        databaseFactory.getFollowingByBand(bandId)
+            .then(result => {
+                $scope.followers = result
+            })
 
+        let requests = [databaseFactory.getSongsByBand(bandId), databaseFactory.getAllVotes()]
+        
         $q.all(requests).then(results => {
-            let songs = results[0]
-            let votes = results[1]
-            $scope.songs = $filter('bandHomeFilter')(songs, votes)
-            console.log($scope.songs)
+            $scope.recordings = results[0]
+            $scope.votes = $filter("bandVotes")(results[0], results[1])
+            $scope.voteTotal = $scope.votes.map(a => a.vote).reduce((b,c) => b + c)
         })
 
-        $scope.triggerActionSheet = function (song) {
-
-
-            // Show the action sheet
-            var showActionSheet = $ionicActionSheet.show({
-                buttons: [
-                    { text: 'Edit' }
-                ],
-
-                destructiveText: 'Delete',
-                titleText: `<h3>${song.songName}</h3>`,
-                cancelText: 'Cancel',
-
-                cancel: function () {
-                    // add cancel code...
-                },
-
-                buttonClicked: function (index) {
-                    if (index === 0) {
-                        dataService.setRecordingObject(song)
-                        $state.go('band.home.details')
-                    }
-                },
-
-                destructiveButtonClicked: function () {
-
-                        var confirmPopup = $ionicPopup.confirm({
-                            title: 'Delete Recording',
-                            template: 'Are you sure you want to delete this recording?'
-                        });
-
-                        confirmPopup.then(function (res) {
-                            if (res) {
-                                let $index = $scope.songs.map(function(e) { return e.id; }).indexOf(song.id)
-                                $scope.songs[$index].hide = true
-                                databaseFactory.deleteRecordingInfo(song.id)
-                                showActionSheet.$scope.cancel()
-                                console.log('You are sure');
-                            } else {
-                                console.log('You are not sure');
-                            }
-                        });
-                    
-                }
-            });
-        };
     })
+
+    //dispay number of followers -> display list of followers
+    //display the number of posts -> list of posts
+    //display overall ranking? / vote count
+    //display top performing post

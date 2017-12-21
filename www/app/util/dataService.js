@@ -12,6 +12,17 @@ angular
                 "value": function () {
                     return this.recordingObject
                 }, "enumerable": true
+            },
+            "userInfo": { "value": {}, "writable": true, "enumerable": true },
+            "setUserInfo" : {
+                "value": function (userObj) {
+                    this.userInfo = userObj
+                }, "enumerable": true
+            },
+            "getUserInfo": {
+                "value": function () {
+                    return this.userInfo
+                }, "enumerable": true
             }
         })
     });

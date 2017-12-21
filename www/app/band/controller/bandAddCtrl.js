@@ -1,5 +1,5 @@
 angular.module('bandstagram')
-    .controller('bandAddCtrl', function ($scope, $state, $ionicModal, audioFactory, databaseFactory, $cordovaCamera, $cordovaFile, $cordovaMedia, photoFactory) {
+    .controller('bandAddCtrl', function ($scope, $state, $ionicModal, audioFactory, databaseFactory,photoFactory) {
 
         // let refrenceUrls = {}
 

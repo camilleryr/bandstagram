@@ -1,5 +1,5 @@
 angular.module('bandstagram')
-  .filter('bandHomeFilter', function () {
+  .filter('bandListFilter', function () {
     return function (recordings, voteTable) {
       var out = [];
       //user.name

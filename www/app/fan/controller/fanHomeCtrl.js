@@ -20,7 +20,7 @@ angular.module('bandstagram')
       console.log($scope.filteredRecordings)
     }
 
-    let requests = [databaseFactory.getFollowing(currentUser), databaseFactory.getTable('recordingTable'), databaseFactory.getTable('bandTable'), databaseFactory.getVotesByFan(currentUser)]
+    let requests = [databaseFactory.getFollowingByFan(currentUser), databaseFactory.getTable('recordingTable'), databaseFactory.getTable('bandTable'), databaseFactory.getVotesByFan(currentUser)]
     
     $q.all(requests).then(function (results) {
       console.log(results)

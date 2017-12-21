@@ -61,13 +61,25 @@ angular.module('bandstagram')
                 }
             })
 
-            .state('band.home.details', {
+            .state('band.list', {
+                cache: false,
+                url: '/list',
+                authRequired: "band",
+                views: {
+                    'band-list': {
+                        templateUrl: 'app/band/partial/bandList.html',
+                        controller: 'bandListCtrl',
+                    }
+                }
+            })
+
+            .state('band.list.details', {
                 url: '/recordingDetails',
                 parent: 'band',
                 authRequired: "band",
                 views: {
-                    'band-home': {
-                        templateUrl: 'app/band/partial/bandHome-details.html',
+                    'band-list': {
+                        templateUrl: 'app/band/partial/bandList-details.html',
                         controller: 'recordingDetailsCtrl',
                     }
                 }
