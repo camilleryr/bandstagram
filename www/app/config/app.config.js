@@ -117,6 +117,18 @@ angular.module('bandstagram')
                 }
             })
 
+            .state('fan.favorites', {
+                cache: false,
+                url: '/favorites',
+                authRequired: "fan",
+                views: {
+                    'fan-favorites': {
+                        templateUrl: 'app/fan/partial/fanFavorites.html',
+                        controller: 'fanFavoritesCtrl',
+                    }
+                }
+            })
+
             .state('fan.search', {
                 cache: false,
                 url: '/search',

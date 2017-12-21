@@ -1,5 +1,5 @@
 angular.module('bandstagram')
-  .controller('fanHomeCtrl', function ($filter, $scope, $state, databaseFactory, audioFactory, $timeout, $q) {
+  .controller('fanHomeCtrl', function ($filter, $scope, $state, databaseFactory, audioFactory, $timeout, $q, dataService) {
 
     let currentUser = firebase.auth().currentUser.uid
 
@@ -16,11 +16,11 @@ angular.module('bandstagram')
     
     const filter = function () {
       $timeout(function () { console.log() }, 100)
-      $scope.filteredRecordings = $filter('fanHomeFilter')(recordingTable, bandsFollowing, bandTable, voteTable)
+      $scope.filteredRecordings = $filter('fanHomeFilter')(recordingTable, bandsFollowing, bandTable, voteTable, favoriteTable)
       console.log($scope.filteredRecordings)
     }
 
-    let requests = [databaseFactory.getFollowingByFan(currentUser), databaseFactory.getTable('recordingTable'), databaseFactory.getTable('bandTable'), databaseFactory.getVotesByFan(currentUser)]
+    let requests = [databaseFactory.getFollowingByFan(currentUser), databaseFactory.getTable('recordingTable'), databaseFactory.getTable('bandTable'), databaseFactory.getVotesByFan(currentUser), databaseFactory.getFavorites(currentUser)]
     
     $q.all(requests).then(function (results) {
       console.log(results)
@@ -28,7 +28,9 @@ angular.module('bandstagram')
       recordingTable = results[1]
       bandTable = results[2]
       voteTable = results[3]
+      favoriteTable = results[4]
       filter()
+      dataService.setFanFavorite($scope.filteredRecordings)
     })
 
     $scope.togglePlay = recordingURL => {
@@ -67,6 +69,32 @@ angular.module('bandstagram')
             filter()
           })
       )
+    }
+
+    $scope.favorite = function(song) {
+      let index = $scope.filteredRecordings.map(x => x.id).indexOf(song.id)
+
+      if(song.favorite){
+        delete $scope.filteredRecordings[index].favorite
+        let favoriteID = favoriteTable.find(x => x.recordingID === song.id).id
+        databaseFactory.removeFromFavorites(currentUser, favoriteID)
+
+      } else {
+        let favoriteObj = {
+          "recordingID" : song.id,
+          "position" : (favoriteTable.length + 1)
+        }
+        $scope.filteredRecordings[index].favorite = favoriteTable.length + 1
+        
+        databaseFactory.addToFavorites(currentUser, favoriteObj).then(
+          result => {
+            $scope.filteredRecordings[index].favoriteID = result.data.name 
+          }
+        )
+        favoriteTable.push(favoriteObj)
+      }
+
+      dataService.setFanFavorite($scope.filteredRecordings)
     }
 
 

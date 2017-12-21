@@ -98,7 +98,7 @@ angular
                                 data: recordingInfo
                             })
                         }
-                    )
+                        )
                 }
             },
             "editRecordingInfo": {
@@ -111,7 +111,7 @@ angular
                                 data: recordingInfo
                             })
                         }
-                    )
+                        )
                 }
             },
             "deleteRecordingInfo": {
@@ -123,7 +123,7 @@ angular
                                 url: `${FIREBASE_CONFIG.databaseURL}/recordingTable/${recordingID}/.json?auth=${idToken}`,
                             })
                         }
-                    )
+                        )
                 }
             },
             "vote": {
@@ -159,7 +159,7 @@ angular
                                 return dataArray
                             })
                         }
-                    )
+                        )
                 }
             },
             "getAllVotes": {
@@ -181,7 +181,7 @@ angular
                                 return dataArray
                             })
                         }
-                    )
+                        )
                 }
             },
             "changeVote": {
@@ -194,7 +194,7 @@ angular
                                 data: vote
                             })
                         }
-                    )
+                        )
                 }
             },
             "deleteVote": {
@@ -206,7 +206,7 @@ angular
                                 url: `${FIREBASE_CONFIG.databaseURL}/voteTable/${voteID}/.json?auth=${idToken}`,
                             })
                         }
-                    )
+                        )
                 }
             },
             "followBand": {
@@ -233,7 +233,7 @@ angular
                                 return Object.keys(response.data).map(key => response.data[key].bandUID)
                             })
                         }
-                    )
+                        )
                 }
             },
             "getFollowingByBand": {
@@ -245,6 +245,69 @@ angular
                                 url: `${FIREBASE_CONFIG.databaseURL}/followingTable/.json?auth=${idToken}&orderBy="bandUID"&equalTo="${bandUID}"`
                             }).then(response => {
                                 return Object.keys(response.data).map(key => response.data[key].fanUID)
+                            })
+                        }
+                        )
+                }
+            },
+            "addToFavorites": {
+                value: function (fanUID, recordingInfo) {
+                    return firebase.auth().currentUser.getIdToken(true)
+                        .then(idToken => {
+                            return $http({
+                                method: "POST",
+                                url: `${FIREBASE_CONFIG.databaseURL}/favoriteTable/${fanUID}/.json?auth=${idToken}`,
+                                data: recordingInfo
+                            })
+                        }
+                        )
+                }
+            },
+            "getFavorites": {
+                value: function (fanUID) {
+                    return firebase.auth().currentUser.getIdToken(true)
+                        .then(idToken => {
+                            return $http({
+                                method: "GET",
+                                url: `${FIREBASE_CONFIG.databaseURL}/favoriteTable/${fanUID}/.json?auth=${idToken}`
+                            }).then(response => {
+                                let dataArray = []
+                                if (response.data) {
+                                    response = response.data
+                                    dataArray =
+                                        Object.keys(response)
+                                            .map(key => {
+                                                response[key].id = key
+                                                return response[key]
+                                            })
+
+                                }
+                                return dataArray
+                            })
+                        }
+                    )
+                }
+            },
+            "removeFromFavorites": {
+                value: function (currentUser, favoriteID) {
+                    return firebase.auth().currentUser.getIdToken(true)
+                        .then(idToken => {
+                            return $http({
+                                method: "DELETE",
+                                url: `${FIREBASE_CONFIG.databaseURL}/favoriteTable/${currentUser}/${favoriteID}/.json?auth=${idToken}`,
+                            })
+                        }
+                    )
+                }
+            },
+            "reorderFavorites": {
+                value: function (favs) {
+                    return firebase.auth().currentUser.getIdToken(true)
+                        .then(idToken => {
+                            return $http({
+                                method: "PATCH",
+                                url: `${FIREBASE_CONFIG.databaseURL}/favoriteTable/.json?auth=${idToken}`,
+                                data: favs
                             })
                         }
                     )
