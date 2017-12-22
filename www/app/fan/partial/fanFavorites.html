@@ -6,7 +6,7 @@
      </ion-nav-buttons>
   <ion-content class="padding">
     <ion-list show-reorder="data.showReorder" show-delete="data.showDelete">
-      <ion-item class="item item-thumbnail-left" ng-repeat="favorite in favorites">
+      <ion-item class="item item-thumbnail-left" ng-repeat="favorite in favorites" ng-show="favorite.favorite">
         <img ng-src={{favorite.imageURL}}>
         <h2>{{favorite.bandName}}</h2>
         <p>{{favorite.songName}}</p>
