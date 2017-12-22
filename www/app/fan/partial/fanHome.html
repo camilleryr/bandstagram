@@ -10,8 +10,14 @@
       <div class="list" ng-repeat="song in filteredRecordings | orderBy: '-timeStamp'">
         <div class="item item-avatar">
           <img ng-src={{song.photoURL}}>
-          <h2>{{song.bandName}}</h2>
-          <p>{{song.songName}}</p>
+          <div style="display:inline-block">
+
+            <h2>{{song.bandName}}</h2>
+            <p>{{song.songName}}</p>
+          </div>
+          <a class="icon-right item-icon"  ng-click="favorite(song)" style="display:inline-block">
+            <i class="icon" ng-class="song.favorite ? 'ion-ios-star' : 'ion-ios-star-outline'"></i>
+          </a>
         </div>
 
         <div class="item item-image">

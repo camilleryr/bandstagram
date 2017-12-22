@@ -1,6 +1,6 @@
 angular.module('bandstagram')
   .filter('fanHomeFilter', function () {
-    return function (recordings, bandArray, bandTable, voteTable) {
+    return function (recordings, bandArray, bandTable, voteTable, favoriteTable) {
       bandTable = Object.values(bandTable)
       var out = [];
       //user.name
@@ -15,6 +15,13 @@ angular.module('bandstagram')
           if(vote){
             recording.vote = vote.vote
           }
+
+          let favorite = favoriteTable.find(fav => fav.recordingID === recording.id)
+          if(favorite){
+            recording.favorite = favorite.position
+            recording.favoriteID = favorite.id
+          }
+
           out.push(recording);
         }
       });

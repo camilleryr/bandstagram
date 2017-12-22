@@ -61,13 +61,25 @@ angular.module('bandstagram')
                 }
             })
 
-            .state('band.home.details', {
+            .state('band.list', {
+                cache: false,
+                url: '/list',
+                authRequired: "band",
+                views: {
+                    'band-list': {
+                        templateUrl: 'app/band/partial/bandList.html',
+                        controller: 'bandListCtrl',
+                    }
+                }
+            })
+
+            .state('band.list.details', {
                 url: '/recordingDetails',
                 parent: 'band',
                 authRequired: "band",
                 views: {
-                    'band-home': {
-                        templateUrl: 'app/band/partial/bandHome-details.html',
+                    'band-list': {
+                        templateUrl: 'app/band/partial/bandList-details.html',
                         controller: 'recordingDetailsCtrl',
                     }
                 }
@@ -101,6 +113,18 @@ angular.module('bandstagram')
                     'fan-home': {
                         templateUrl: 'app/fan/partial/fanHome.html',
                         controller: 'fanHomeCtrl',
+                    }
+                }
+            })
+
+            .state('fan.favorites', {
+                cache: false,
+                url: '/favorites',
+                authRequired: "fan",
+                views: {
+                    'fan-favorites': {
+                        templateUrl: 'app/fan/partial/fanFavorites.html',
+                        controller: 'fanFavoritesCtrl',
                     }
                 }
             })

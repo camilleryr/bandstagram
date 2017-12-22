@@ -1,0 +1,20 @@
+<ion-view view-title="FAVORITE RECORDINGS">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon icon ion-ios-minus-outline"
+        ng-click="data.showDelete = !data.showDelete; data.showReorder = !data.showReorder">
+        </button>
+     </ion-nav-buttons>
+  <ion-content class="padding">
+    <ion-list show-reorder="data.showReorder" show-delete="data.showDelete">
+      <ion-item class="item item-thumbnail-left" ng-repeat="favorite in favorites" ng-show="favorite.favorite">
+        <img ng-src={{favorite.imageURL}}>
+        <h2>{{favorite.bandName}}</h2>
+        <p>{{favorite.songName}}</p>
+        <ion-reorder-button class="ion-navicon" ng-click="togglePlay(favorite.recordingURL)" on-reorder="moveItem(favorite, $fromIndex, $toIndex)"></ion-reorder-button>
+        <ion-delete-button class="ion-minus-circled button-dark" ng-click="onItemDelete(favorite)">
+          </ion-delete-button>
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+</ion-view>
