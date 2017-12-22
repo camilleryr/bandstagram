@@ -1,10 +1,20 @@
 angular.module('bandstagram')
-.controller('fanFavoritesCtrl', function($scope, $state, databaseFactory, $timeout, dataService) {
+.controller('fanFavoritesCtrl', function($scope, $state, databaseFactory, $timeout, dataService, audioFactory) {
     
     let fanUID = firebase.auth().currentUser.uid
 
+    $scope.data = {
+        "showReorder": true,
+        "showDelete": false
+    }
+
     $scope.favorites = dataService.getFanFavorite()
     console.log($scope.favorites)
+
+    $scope.togglePlay = function(recordingURL) {
+        console.log("wha")
+        audioFactory.togglePlay(recordingURL)
+    }
 
     $scope.moveItem = function(item, fromIndex, toIndex) {
         console.log( $scope.favorites)
@@ -16,11 +26,16 @@ angular.module('bandstagram')
 
 
         $scope.favorites.forEach((fav, index) => {
-            favObj[fanUID][fav.favoriteID] = {"position":($scope.favorites.length - index + 1), "recordingID":fav.id}
+            favObj[fanUID][fav.favoriteID] = {"position":($scope.favorites.length - index), "recordingID":fav.id}
         })
         
         console.log(favObj)
 
         databaseFactory.reorderFavorites(favObj)
+    }
+
+    $scope.onItemDelete = function(favorite) {
+        $scope.favorites = $scope.favorites.filter(x => x.id != favorite.id)
+        databaseFactory.removeFromFavorites(fanUID, favorite.favoriteID)
     }
 })

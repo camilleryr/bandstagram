@@ -82,10 +82,10 @@ angular.module('bandstagram')
       } else {
         let favoriteObj = {
           "recordingID" : song.id,
-          "position" : (favoriteTable.length + 1)
+          "position" : Date.now()
         }
         $scope.filteredRecordings[index].favorite = favoriteTable.length + 1
-        
+
         databaseFactory.addToFavorites(currentUser, favoriteObj).then(
           result => {
             $scope.filteredRecordings[index].favoriteID = result.data.name 
