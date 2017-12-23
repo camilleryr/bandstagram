@@ -219,7 +219,20 @@ angular
                                 data: { "bandUID": bandID, "fanUID": firebase.auth().currentUser.uid }
                             })
                         }
-                        )
+                    )
+                }
+            },
+            "unfollowBand": {
+                value: function (followUID) {
+                    let fanUID = firebase.auth().currentUser.uid
+                    return firebase.auth().currentUser.getIdToken(true)
+                        .then(idToken => {
+                            return $http({
+                                method: "DELETE",
+                                url: `${FIREBASE_CONFIG.databaseURL}/followingTable/${followUID}/.json?auth=${idToken}`
+                            })
+                        }
+                    )
                 }
             },
             "getFollowingByFan": {
@@ -230,10 +243,18 @@ angular
                                 method: "GET",
                                 url: `${FIREBASE_CONFIG.databaseURL}/followingTable/.json?auth=${idToken}&orderBy="fanUID"&equalTo="${fanUID}"`
                             }).then(response => {
-                                return Object.keys(response.data).map(key => response.data[key].bandUID)
+                                response = response.data
+                                let dataArray =
+                                    Object.keys(response)
+                                        .map(key => {
+                                            response[key].id = key
+                                            return response[key]
+                                        })
+
+                                return dataArray
                             })
                         }
-                        )
+                    )
                 }
             },
             "getFollowingByBand": {
@@ -247,7 +268,7 @@ angular
                                 return Object.keys(response.data).map(key => response.data[key].fanUID)
                             })
                         }
-                        )
+                    )
                 }
             },
             "addToFavorites": {

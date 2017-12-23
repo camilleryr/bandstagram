@@ -2,8 +2,11 @@
     <ion-content class="padding">
         <h1>{{band.bandName}}</h1>
         <h3>{{band.location}}</h3>
-        <button class="button button-block button-passive" ng-click="followBand()">
+        <button ng-if="favorite === 'undefined'" class="button button-block button-passive" ng-click="followBand()">
             Follow
+        </button>
+        <button ng-if="favorite === 'true'" class="button button-block button-passive" ng-click="unfollowBand()">
+            Unfollow
         </button>
 
         <ion-list>

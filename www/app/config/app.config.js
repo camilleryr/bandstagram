@@ -142,7 +142,7 @@ angular.module('bandstagram')
             })
 
             .state('fan.search.details', {
-                url: '/:bandUID',
+                url: '/:bandUID:favorite',
                 parent: 'fan',
                 authRequired: "fan",
                 views: {

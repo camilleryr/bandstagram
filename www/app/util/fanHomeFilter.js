@@ -1,6 +1,7 @@
 angular.module('bandstagram')
   .filter('fanHomeFilter', function () {
     return function (recordings, bandArray, bandTable, voteTable, favoriteTable) {
+      bandArray = bandArray.map(x => x.bandUID)
       bandTable = Object.values(bandTable)
       var out = [];
       //user.name
