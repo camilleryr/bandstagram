@@ -21,7 +21,12 @@ angular.module('bandstagram')
         $q.all(requests).then(results => {
             $scope.recordings = results[0]
             $scope.votes = $filter("bandVotes")(results[0], results[1])
-            $scope.voteTotal = $scope.votes.map(a => a.vote).reduce((b,c) => b + c)
+            try{
+                $scope.voteTotal = $scope.votes.map(a => a.vote).reduce((b,c) => b + c)
+            } catch (e) {
+                $scope.voteTotal = 0
+            }
+
         })
 
     })

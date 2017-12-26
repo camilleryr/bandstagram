@@ -11,7 +11,9 @@ angular.module('bandstagram')
         $scope.bandTable = $filter('fanSearchFilter')(results[0],results[1])
     })
 
-    $scope.showDetail = band => $state.go('fan.search.details', {"bandUID" : ":" + band.uid, "favorite" : ":" + band.favorite})
+    $scope.showDetail = band => {
+        $state.go('fan.search.details', {"bandUID" : ":" + band.uid, "followed" : ":" + band.followed})
+    }
     
     $scope.follow = band => {
         let bandIndex = $scope.bandTable.map(x => x.id).indexOf(band.id)

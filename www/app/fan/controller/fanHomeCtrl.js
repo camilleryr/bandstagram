@@ -17,13 +17,11 @@ angular.module('bandstagram')
     const filter = function () {
       $timeout(function () { console.log() }, 100)
       $scope.filteredRecordings = $filter('fanHomeFilter')(recordingTable, bandsFollowing, bandTable, voteTable, favoriteTable)
-      console.log($scope.filteredRecordings)
     }
 
     let requests = [databaseFactory.getFollowingByFan(currentUser), databaseFactory.getTable('recordingTable'), databaseFactory.getTable('bandTable'), databaseFactory.getVotesByFan(currentUser), databaseFactory.getFavorites(currentUser)]
     
     $q.all(requests).then(function (results) {
-      console.log(results)
       bandsFollowing = results[0]
       recordingTable = results[1]
       bandTable = results[2]
