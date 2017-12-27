@@ -1,7 +1,9 @@
 
 
 angular.module('bandstagram')
-    .controller('authCtrl', function ($scope, $state, databaseFactory, authFactory, photoFactory, $ionicModal) {
+    .controller('authCtrl', function ($scope, $state, databaseFactory, authFactory, photoFactory, $ionicModal, $firebaseAuth, $cordovaOauth) {
+
+        var fb = firebase.database().ref()
 
         $scope.placeholder = photoFactory.placeholder
 
@@ -31,9 +33,21 @@ angular.module('bandstagram')
             })
         }
         
-        $scope.console = function () {
-            console.log($scope.userInfo)
-            console.log($scope.auth)
+        $scope.signupFacebook = function() {
+            debugger
+            var auth = $firebaseAuth(fb)
+            console.log(auth)
+
+            $cordovaOauth.facebook("172907863311544", ["email"]).then(function(result) {
+                console.log(JSON.stringify(result))
+                auth.$authWithOAuthToken("facebook", result.access_token).then(function(authData) {
+                    console.log(JSON.stringify(authData));
+                }, function(error) {
+                    console.error("ERROR: " + error);
+                });
+            }, function(error) {
+                console.log("ERROR: " + error);
+            });
         }
         
         

@@ -28,6 +28,8 @@ plugins/android.json
 plugins/ios.json
 $RECYCLE.BIN/
 
+phonegap-facebook-plugin
+
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
