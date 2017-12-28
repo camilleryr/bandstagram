@@ -25,9 +25,11 @@
     -->
 
   <!-- ionic/angularjs js / Firebase / ngCordova -->
-  <script src="lib/ionic/js/ionic.bundle.js"></script>
   <script src="lib/firebase/firebase.js"></script>
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
   <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+  <script src="lib/ng-cordova-oauth/dist/ng-cordova-oauth.min.js"></script>
 
   <!-- cordova script (this will be a 404 during development) -->
   <script src="cordova.js"></script>
@@ -42,6 +44,7 @@
   <script src="app/util/audioFactory.js"></script>
   <script src="app/util/photoFactory.js"></script>
   <script src="app/util/databaseFactory.js"></script>
+  <script src="app/util/facebookFactory.js"></script>
   <script src="app/util/fanHomeFilter.js"></script>
   <script src="app/util/fanSearchFilter.js"></script>
   <script src="app/util/bandListFilter.js"></script>
@@ -50,6 +53,7 @@
 
   <script src="app/nav/navCtrl.js"></script>
   <script src="app/auth/controller/authCtrl.js"></script>
+  <script src="app/auth/controller/registerCtrl.js"></script>
   <script src="app/band/controller/bandAddCtrl.js"></script>
   <script src="app/band/controller/bandHomeCtrl.js"></script>
   <script src="app/band/controller/bandListCtrl.js"></script>

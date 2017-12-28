@@ -41,6 +41,13 @@ angular.module('bandstagram')
                 controller: 'authCtrl'
             })
 
+            .state('register', {
+                url: '/register',
+                templateUrl: 'app/auth/partial/register.html',
+                controller: 'registerCtrl'
+            })
+            
+
             // setup an abstract state for the band tabs directive
             .state('band', {
                 url: '/band',
