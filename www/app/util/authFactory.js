@@ -1,53 +1,58 @@
 angular.module("bandstagram")
-.factory("authFactory", function ($http, $timeout, $location, $state) {
-    
-    let currentUserData = null
+    .factory("authRouteFactory", function ($timeout, $state) {
+        return function (user) {
+            if (user) {
 
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-            currentUserData = user
-            
-            if(user.displayName){
-                $state.go(currentUserData.displayName + ".home")
+                if (user.displayName === "band" || user.displayName === "fan") {
+                    $state.go(user.displayName + ".home")
+                } else {
+                    $state.go('register')
+                }
+
+            } else {
+                currentUserData = null
+                console.log("User is not authenticated")
+                $timeout(function () {
+                    $state.go("auth")
+                }, 100)
             }
-            
-        } else {
-            currentUserData = null
-            console.log("User is not authenticated")
-            $timeout(function () {
-                $state.go("auth")
-            }, 100)
         }
     })
 
-    return Object.create(null, {
-        isAuthenticated: {
-            value: () => {
-                const user = currentUserData
-                return user ? true : false
-            }
-        },
-        getUser: {
-            value: () => firebase.auth().currentUser
-        },
-        logout: {
-            value: () => firebase.auth().signOut().then(console.log("User is signed out"))
-        },
-        authenticate: {
-            value: credentials =>
-                firebase.auth()
+    .factory("authFactory", function ($http, $timeout, $location, $state, authRouteFactory) {
+
+        firebase.auth().onAuthStateChanged(function (user) {
+            authRouteFactory(user)
+        })
+
+        return Object.create(null, {
+            isAuthenticated: {
+                value: () => {
+                    const user = currentUserData
+                    return user ? true : false
+                }
+            },
+            getUser: {
+                value: () => firebase.auth().currentUser
+            },
+            logout: {
+                value: () => firebase.auth().signOut().then(console.log("User is signed out"))
+            },
+            authenticate: {
+                value: credentials =>
+                    firebase.auth()
                         .signInWithEmailAndPassword(
-                            credentials.email,
-                            credentials.password
+                        credentials.email,
+                        credentials.password
                         ).then(user => user)
-        },
-        registerWithEmail: {
-            value: user => 
-                firebase.auth()
+            },
+            registerWithEmail: {
+                value: user =>
+                    firebase.auth()
                         .createUserWithEmailAndPassword(
-                            user.email,
-                            user.password
+                        user.email,
+                        user.password
                         )
-        }
+            }
+        })
     })
-})
