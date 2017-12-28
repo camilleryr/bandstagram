@@ -1,5 +1,5 @@
 angular.module('bandstagram')
-  .controller('fanHomeCtrl', function ($filter, $scope, $state, databaseFactory, audioFactory, $timeout, $q, dataService) {
+  .controller('fanHomeCtrl', function ($filter, $scope, $state, databaseFactory, audioFactory, $timeout, $q, dataService, $ionicPopup) {
 
     let currentUser = firebase.auth().currentUser.uid
 
@@ -8,19 +8,19 @@ angular.module('bandstagram')
         $scope.fanInfo = Object.values(result)[0]
       })
     })
-    
+
     let bandsFollowing
     let recordingTable
     let bandTable
     let voteTable
-    
+
     const filter = function () {
       $timeout(function () { console.log() }, 100)
       $scope.filteredRecordings = $filter('fanHomeFilter')(recordingTable, bandsFollowing, bandTable, voteTable, favoriteTable)
     }
 
     let requests = [databaseFactory.getFollowingByFan(currentUser), databaseFactory.getTable('recordingTable'), databaseFactory.getTable('bandTable'), databaseFactory.getVotesByFan(currentUser), databaseFactory.getFavorites(currentUser)]
-    
+
     $q.all(requests).then(function (results) {
       bandsFollowing = results[0]
       recordingTable = results[1]
@@ -37,7 +37,7 @@ angular.module('bandstagram')
 
     $scope.vote = (songID, vote) => {
       let votePromise = null
-      let index = $scope.filteredRecordings.map(function(recording) { return recording.id }).indexOf(songID)
+      let index = $scope.filteredRecordings.map(function (recording) { return recording.id }).indexOf(songID)
 
       if (!$scope.filteredRecordings[index].hasOwnProperty('vote')) {
         $scope.filteredRecordings[index].vote = vote
@@ -69,24 +69,44 @@ angular.module('bandstagram')
       )
     }
 
-    $scope.favorite = function(song) {
+    $scope.unfollowPopUp = function (song) {
+      let confirmPopup = $ionicPopup.confirm({
+        title: `Unfollow ${song.bandName}`,
+        template: `Would you like to stop following ${song.bandName}`
+      });
+
+      confirmPopup.then(function (res) {
+        if (res) {
+          
+          databaseFactory.unfollowBand(bandsFollowing.splice(bandsFollowing.map(x => x.bandUID).indexOf(song.bandUID),1)[0].id)
+
+          filter()
+
+          console.log('You are sure');
+        } else {
+          console.log('You are not sure');
+        }
+      })
+    }
+
+    $scope.favorite = function (song) {
       let index = $scope.filteredRecordings.map(x => x.id).indexOf(song.id)
 
-      if(song.favorite){
+      if (song.favorite) {
         delete $scope.filteredRecordings[index].favorite
         let favoriteID = favoriteTable.find(x => x.recordingID === song.id).id
         databaseFactory.removeFromFavorites(currentUser, favoriteID)
 
       } else {
         let favoriteObj = {
-          "recordingID" : song.id,
-          "position" : Date.now()
+          "recordingID": song.id,
+          "position": Date.now()
         }
         $scope.filteredRecordings[index].favorite = favoriteTable.length + 1
 
         databaseFactory.addToFavorites(currentUser, favoriteObj).then(
           result => {
-            $scope.filteredRecordings[index].favoriteID = result.data.name 
+            $scope.filteredRecordings[index].favoriteID = result.data.name
           }
         )
         favoriteTable.push(favoriteObj)

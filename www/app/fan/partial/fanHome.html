@@ -12,11 +12,11 @@
           <img ng-src={{song.photoURL}}>
           <div style="display:inline-block">
 
-            <h2>{{song.bandName}}</h2>
+            <h2 ng-click="unfollowPopUp(song)">{{song.bandName}}</h2>
             <p>{{song.songName}}</p>
           </div>
           <a class="icon-right item-icon"  ng-click="favorite(song)" style="display:inline-block">
-            <i class="icon" ng-class="song.favorite ? 'ion-ios-star' : 'ion-ios-star-outline'"></i>
+            <i class="icon dark" ng-class="song.favorite ? 'ion-ios-star' : 'ion-ios-star-outline'"></i>
           </a>
         </div>
 
@@ -24,14 +24,14 @@
           <img ng-src={{song.imageURL}}>
         </div>
         <div class="item">
-          <a class="item-icon assertive" ng-click="togglePlay(song.recordingURL)" style="display:inline-block">
+          <a class="item-icon dark" ng-click="togglePlay(song.recordingURL)" style="display:inline-block">
             <i class="icon ion-music-note"></i>
             Start listening
           </a>
-          <a class="icon-right item-icon" ng-class="song.vote === -1 ? 'assertive' : 'calm'" ng-click="vote(song.id, -1)" style="display:inline-block">
+          <a class="icon-right item-icon" ng-class="song.vote === -1 ? 'dark' : 'subdued'" ng-click="vote(song.id, -1)" style="display:inline-block">
             <i class="icon ion-thumbsdown"></i>
           </a>
-          <a class="icon-right item-icon" ng-click="vote(song.id, 1)" ng-class="song.vote === 1 ? 'assertive' : 'calm'" style="display:inline-block">
+          <a class="icon-right item-icon" ng-click="vote(song.id, 1)" ng-class="song.vote === 1 ? 'dark' : 'subdued'" style="display:inline-block">
             <i class="icon ion-thumbsup"></i>
           </a>
         </div>

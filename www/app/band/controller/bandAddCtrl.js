@@ -31,6 +31,20 @@ angular.module('bandstagram')
         }
 
         $scope.recording = Object.create(null, {
+            "active": {
+                "value": false, "writable": true, "enumerable": true
+            },
+            "toggle": {
+                "value": function() {
+                    if(this.active === true){
+                        this.active = false
+                        this.stop()
+                    } else if (this.active === false) {
+                        this.active = true
+                        this.start()
+                    }
+                }
+            },
             "start": {
                 "value": () => audioFactory.start()
             },

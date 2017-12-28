@@ -3,16 +3,13 @@
         <h1 class="title">Create Recording</h1>
     </ion-header-bar>
     <ion-content>
-        <button class="button button-block button-positive" ng-click="recording.start()">
-            Start Recording
+        <button class="button button-block button-dark" style="height:250px; width:250px; border-radius:50%; margin:80px auto 80px; display:flex; justify-content:space-around;" ng-click="recording.toggle()">
+            <i class="icon light" ng-class="recording.active == true ? 'ion-ios-pause' : 'ion-ios-mic'"id="record_button" style="align-self:center;"></i>
         </button>
-        <button class="button button-block button-calm" ng-click="recording.stop()">
-            Stop Recording
-        </button>
-        <button class="button button-block button-balanced" ng-click="recording.play()">
+        <button class="button button-block button-dark" ng-click="recording.play()">
             Play Recording
         </button>
-        <button class="button button-block button-energized" ng-click="recording.save()">
+        <button class="button button-block button-dark" ng-click="recording.save()">
             Save Recording
         </button>
         <button class="button button-block button-assertive" ng-click="closeModal(false)">

@@ -21,12 +21,12 @@ angular.module('bandstagram')
             // Show the action sheet
             var showActionSheet = $ionicActionSheet.show({
                 buttons: [
-                    { text: 'Edit' }
+                    { text: '<p class ="calm">Edit</p>' }
                 ],
 
                 destructiveText: 'Delete',
-                titleText: `<h3>${song.songName}</h3>`,
-                cancelText: 'Cancel',
+                titleText: `<h3 class="dark">${song.songName}</h3>`,
+                cancelText: '<p class="dark">Cancel</p>',
 
                 cancel: function () {
                     // add cancel code...
