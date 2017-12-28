@@ -12,7 +12,7 @@
           <img ng-src={{song.photoURL}}>
           <div style="display:inline-block">
 
-            <h2>{{song.bandName}}</h2>
+            <h2 ng-click="unfollowPopUp(song)">{{song.bandName}}</h2>
             <p>{{song.songName}}</p>
           </div>
           <a class="icon-right item-icon"  ng-click="favorite(song)" style="display:inline-block">
