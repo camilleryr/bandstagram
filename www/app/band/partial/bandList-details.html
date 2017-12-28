@@ -1,7 +1,7 @@
 <ion-view view-title="EDIT RECORDING">
         <ion-content class="padding">
           <img ng-src="{{recordingInfo.imageURL}}" width="350" height="350" style="display: block; margin: 0 auto;" />
-          <button class="button button-block button-positive" ng-click="takePicture()">
+          <button class="button button-block button-dark" ng-click="takePicture()">
               Replace Photo
           </button>
           <div class="list">
@@ -13,10 +13,10 @@
               <span class="input-label">Description</span>
               <input type="text" ng-model="recordingInfo.songDescription">
             </label>
-            <button class="button button-block button-balanced" ng-click="openModal()">
+            <button class="button button-block button-dark" ng-click="openModal()">
                 Replace Recording
             </button>
-            <button class="button button-block button-assertive" ng-click="recording.post() ">
+            <button class="button button-block button-dark" ng-click="recording.post() ">
                 Save Edit
             </button>
       
