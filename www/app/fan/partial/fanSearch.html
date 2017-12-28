@@ -3,9 +3,9 @@
       <div class="bar bar-subheader">
       </div>
             <div class="button-bar">
-                <a class="button" ng-class="{'button-positive': isActive('followed')}" ng-click="setActive('followed'); query.bandName = ''">Followed</a>
-                <a class="button" ng-class="{'button-positive': isActive('all')}" ng-click="setActive('all'); query.bandName = ''">Show All</a>
-                <a class="button" ng-class="{'button-positive': isActive('unfollowed')}" ng-click="setActive('unfollowed'); query.bandName = ''">Unfollowed</a>
+                <a class="button" ng-class="{'button-dark': isActive('followed')}" ng-click="setActive('followed'); query.bandName = ''">Followed</a>
+                <a class="button" ng-class="{'button-dark': isActive('all')}" ng-click="setActive('all'); query.bandName = ''">Show All</a>
+                <a class="button" ng-class="{'button-dark': isActive('unfollowed')}" ng-click="setActive('unfollowed'); query.bandName = ''">Unfollowed</a>
             </div>
     <label class="item item-input item-floating-label">
       <span class="input-label">Search for Bands</span>
@@ -19,10 +19,10 @@
             <h2>{{band.bandName}}</h2>
             <p>{{band.location}}</p>
 
-        <ion-option-button class="button-calm" ng-click="showDetail(band)">
+        <ion-option-button class="button-dark" ng-click="showDetail(band)">
         Details
         </ion-option-button>
-        <ion-option-button ng-if="!band.followed" class="button-positive" ng-click="follow(band)">
+        <ion-option-button ng-if="!band.followed" class="button-calm" ng-click="follow(band)">
         Follow
         </ion-option-button>
         <ion-option-button ng-if="band.followed" class="button-assertive" ng-click="unfollow(band)">

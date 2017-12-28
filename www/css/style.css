@@ -41,3 +41,6 @@
     transform: translateX(-800px);
 }
 
+#record_button:before {
+    font-size: 150px;
+}
