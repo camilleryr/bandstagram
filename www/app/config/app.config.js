@@ -1,7 +1,7 @@
 //Configure state routing and is auth function
 
 angular.module('bandstagram')
-    .run(function ($ionicPlatform, FIREBASE_CONFIG, $rootScope, $state) {
+    .run(function ($ionicPlatform, FIREBASE_CONFIG, $rootScope, $state, $timeout, $ionicLoading) {
 
         //Add firebase to add
         firebase.initializeApp(FIREBASE_CONFIG)
@@ -25,6 +25,24 @@ angular.module('bandstagram')
                 event.preventDefault();
             }
         });
+
+        $rootScope.toggle = function (text, timeout) {
+            $rootScope.show(text);
+
+            $timeout(function () {
+                $rootScope.hide();
+            }, (timeout || 1000));
+        };
+
+        $rootScope.show = function (text) {
+            $ionicLoading.show({
+                template: text
+            });
+        };
+
+        $rootScope.hide = function () {
+            $ionicLoading.hide();
+        };
     })
 
     .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
@@ -46,7 +64,7 @@ angular.module('bandstagram')
                 templateUrl: 'app/auth/partial/register.html',
                 controller: 'registerCtrl'
             })
-            
+
 
             // setup an abstract state for the band tabs directive
             .state('band', {

@@ -1,9 +1,9 @@
 angular.module('bandstagram')
-  .factory("audioFactory", function ($cordovaMedia, $cordovaFile) {
+  .factory("audioFactory", function ($cordovaMedia, $cordovaFile, $rootScope) {
     return Object.create(null, {
       "mediaURL": { "value": null, "writable": true, "enumerable": true },
 
-      "mediaObject": { "value": { "media": { "src": false } }, "writable": true, "enumerable": true },
+      "mediaObject": { "value": { "src": false }  , "writable": true, "enumerable": true },
 
       "currentlyPlaying": { "value": false, "writable": true, "enumerable": true },
 
@@ -11,27 +11,33 @@ angular.module('bandstagram')
         "value": function (mediaURL) {
           this.mediaURL = mediaURL
 
-          if (!this.currentlyPlaying && this.mediaURL === this.mediaObject.media.src) {
+          if (!this.currentlyPlaying && this.mediaURL === this.mediaObject.src) {
             this.playRecording()
-          }
-
-          if (this.currentlyPlaying) {
+          }else if (this.currentlyPlaying) {
             console.log("Stop")
             this.mediaObject.stop()
             this.currentlyPlaying = false
-          }
-
-          if (this.mediaURL !== this.mediaObject.media.src) {
+          }else if (this.mediaURL !== this.mediaObject.src) {
             this.playRecording()
           }
         }
       },
-
+      
       "playRecording": {
         "value": function () {
+          
+          let onSuccess = () => {
+            this.currentlyPlaying = false
+          }
+
+          let onError = (error) => {
+            console.log(JSON.stringify(error))
+          }
+
+
           console.log("Play")
           this.currentlyPlaying = true
-          this.mediaObject = $cordovaMedia.newMedia(this.mediaURL)
+          this.mediaObject = new Media(this.mediaURL, onSuccess, onError)
           this.mediaObject.play();
         }
       },
@@ -80,6 +86,7 @@ angular.module('bandstagram')
         "value": function () {
 
           console.log("save")
+          $rootScope.show('<ion-spinner></ion-spinner>')
 
           let storageRef = firebase.storage().ref();
 
@@ -94,6 +101,7 @@ angular.module('bandstagram')
               console.log("converted")
 
               return recordingRef.putString(success, 'data_url').then(result => {
+                $rootScope.hide()
                 return recordingRef.getDownloadURL()
               })
             }
