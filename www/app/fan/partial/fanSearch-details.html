@@ -1,14 +1,21 @@
 <ion-view view-title="BAND DETAIL">
+
     <ion-content class="padding">
+
         <h1>{{band.bandName}}</h1>
         <h3>{{band.location}}</h3>
+
+        <!-- show a follow button if the band object has an undefined followed property -->
         <button ng-if="followed === 'undefined'" class="button button-block button-positive" ng-click="followBand()">
             Follow
         </button>
+
+        <!-- show a unfollow button if the band object has a true followed property -->
         <button ng-if="followed === 'true'" class="button button-block button-assertive" ng-click="unfollowBand()">
             Unfollow
         </button>
-
+        
+        <!-- list all songs from the band -->
         <ion-list>
             <div class="list">
                 <a ng-repeat="song in songs" class="item item-thumbnail-left" ng-click="togglePlay(song.recordingURL)">

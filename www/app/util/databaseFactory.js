@@ -4,6 +4,8 @@ angular
 
         return Object.create(null, {
 
+            //firebase restAPI calls
+
             "getTable": {
                 value: function (tableName) {
                     return firebase.auth().currentUser.getIdToken(true)

@@ -2,6 +2,8 @@ angular
     .module("bandstagram")
     .service('dataService', function () {
         return Object.create(null, {
+
+            //pass information between controllers
             
             "recordingObject": { "value": {}, "writable": true, "enumerable": true },
             "setRecordingObject": {

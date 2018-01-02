@@ -1,19 +1,28 @@
 <ion-modal-view>
+
     <ion-header-bar>
         <h1 class="title">Create Recording</h1>
     </ion-header-bar>
+
     <ion-content>
+
+        <!-- button that toggles the recording - when not active it shows a mic icon, when active it displays a pause icon -->
         <button class="button button-block button-dark" style="height:250px; width:250px; border-radius:50%; margin:80px auto 80px; display:flex; justify-content:space-around;" ng-click="recording.toggle()">
             <i class="icon light" ng-class="recording.active == true ? 'ion-ios-pause' : 'ion-ios-mic'"id="record_button" style="align-self:center;"></i>
         </button>
+
         <button class="button button-block button-dark" ng-click="recording.play()">
             Play Recording
         </button>
+
         <button class="button button-block button-dark" ng-click="recording.save()">
             Save Recording
         </button>
+
         <button class="button button-block button-assertive" ng-click="closeModal(false)">
             Cancel
         </button>
+
     </ion-content>
+    
 </ion-modal-view>

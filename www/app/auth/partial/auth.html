@@ -1,24 +1,31 @@
 <ion-view view-title="Authentication">
+  
   <ion-content class="padding">
 
     <div class="list">
+
       <label class="item item-input">
         <input type="text" placeholder="Email" ng-model="auth.email">
       </label>
+
       <label class="item item-input">
         <input type="password" placeholder="Password" ng-model="auth.password">
       </label>
+
     </div>
+
     <button class="button button-block button-dark" ng-click="logMeIn()">
       Login
     </button>
+
     <button class="button button-block button-dark" ng-click="registerUser()">
       Register
     </button>
-    <button class="button button-block button-dark" ng-click="signupFacebook()">
+
+    <button class="button button-block button-positive" ng-click="signupFacebook()">
         Login with Facebook
     </button>
 
-
   </ion-content>
+
 </ion-view>

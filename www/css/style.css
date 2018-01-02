@@ -44,3 +44,7 @@
 #record_button:before {
     font-size: 150px;
 }
+
+#playAll a i:before{
+    line-height: 32px;
+}

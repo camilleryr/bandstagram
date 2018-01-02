@@ -1,35 +1,47 @@
 <ion-view view-title="SEARCH FOR BAND">
+
   <ion-content class="padding">
-      <div class="bar bar-subheader">
-      </div>
-            <div class="button-bar">
-                <a class="button" ng-class="{'button-dark': isActive('followed')}" ng-click="setActive('followed'); query.bandName = ''">Followed</a>
-                <a class="button" ng-class="{'button-dark': isActive('all')}" ng-click="setActive('all'); query.bandName = ''">Show All</a>
-                <a class="button" ng-class="{'button-dark': isActive('unfollowed')}" ng-click="setActive('unfollowed'); query.bandName = ''">Unfollowed</a>
-            </div>
+    
+    <!-- button bar for filtering bands by follow status, displays as dark button when active and changes the active status when clicked -->
+    <div class="button-bar">
+
+      <a class="button" ng-class="{'button-dark': isActive('followed')}" ng-click="setActive('followed'); query.bandName = ''">Followed</a>
+      <a class="button" ng-class="{'button-dark': isActive('all')}" ng-click="setActive('all'); query.bandName = ''">Show All</a>
+      <a class="button" ng-class="{'button-dark': isActive('unfollowed')}" ng-click="setActive('unfollowed'); query.bandName = ''">Unfollowed</a>
+
+    </div>
+
+    <!-- search bar for text input -->
     <label class="item item-input item-floating-label">
       <span class="input-label">Search for Bands</span>
       <input type="text" placeholder="Search for Bands" ng-model="query.bandName">
     </label>
+
     <ion-list>
 
-
-        <ion-item class="item item-thumbnail-left" ng-repeat="band in bandTable | filter: query | favoriteFilter:active">
-            <img ng-src="{{band.photoURL}}" style="border-radius:50%">
-            <h2>{{band.bandName}}</h2>
-            <p>{{band.location}}</p>
-
+      <!-- display bands from band table, use the text input and the button bar to filter -->
+      <ion-item class="item item-thumbnail-left" ng-repeat="band in bandTable | filter: query | favoriteFilter:active">
+        <img ng-src="{{band.photoURL}}" style="border-radius:50%">
+        <h2>{{band.bandName}}</h2>
+        <p>{{band.location}}</p>
+        
         <ion-option-button class="button-dark" ng-click="showDetail(band)">
-        Details
+          Details
         </ion-option-button>
+
+        <!-- display follow / unfollow buttons based on follow status of band object -->
         <ion-option-button ng-if="!band.followed" class="button-calm" ng-click="follow(band)">
-        Follow
+          Follow
         </ion-option-button>
+
         <ion-option-button ng-if="band.followed" class="button-assertive" ng-click="unfollow(band)">
-        Unfollow
+          Unfollow
         </ion-option-button>
 
       </ion-item>
+
     </ion-list>
+
   </ion-content>
+  
 </ion-view>

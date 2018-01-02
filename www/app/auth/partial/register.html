@@ -1,36 +1,50 @@
 <ion-view view-title="Register">
+
     <ion-content class="padding">
 
+        <!-- selector for a band account or a fan account -->
         <ion-list>
             <ion-radio ng-model="auth.account" value="band">Band</ion-radio>
             <ion-radio ng-model="auth.account" value="fan">Fan</ion-radio>
         </ion-list>
 
+        <!-- display the photo section for both account types, use the photo if it has been taken or stripped from facebook, or use the placeholder image -->
         <div ng-if="auth.account">
+
             <img ng-src="{{userInfo.photoURL || placeholder}}" width="350" height="350" style="display: block; margin: 0 auto;" />
+
             <button class="button button-block button-dark" ng-click="takePicture()">
                 Add Photo
             </button>
+
         </div>
+
+        <!-- Show options for registering a band account -->
         <div class="list" ng-if="auth.account === 'band'">
+
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Band Name</span>
                 <input type="text" ng-model="userInfo.bandName" value="{{displayName}}">
             </label>
+
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Location</span>
                 <input type="text" ng-model="userInfo.location">
             </label>
+
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Biography</span>
                 <input type="text" ng-model="userInfo.bio">
             </label>
+
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Website</span>
                 <input type="text" ng-model="userInfo.website">
             </label>
+
         </div>
 
+        <!-- Show options for registering a fan account -->
         <div class="list" ng-if="auth.account === 'fan'">
             <label class="item item-input item-stacked-label">
                 <span class="input-label">User Name</span>
@@ -38,12 +52,9 @@
             </label>
         </div>
 
-
+        <!-- Save info -->
         <button class="button button-block button-dark" ng-click="register(true)">
             Save
-        </button>
-        <button class="button button-block button-dark" ng-click="register(false)">
-            Cancel
         </button>
     </ion-content>
 </ion-view>
