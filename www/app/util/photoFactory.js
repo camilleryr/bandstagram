@@ -15,7 +15,9 @@ angular.module('bandstagram')
                             quality: 01,
                             destinationType: Camera.DestinationType.DATA_URL,
                             sourceType: Camera.PictureSourceType.CAMERA,
-                            // allowEdit: true,
+                            allowEdit: true,
+                            // targetWidth: 700,
+                            // targetHeight: 700,
                             encodingType: Camera.EncodingType.JPEG,
                             popoverOptions: CameraPopoverOptions,
                             saveToPhotoAlbum: false

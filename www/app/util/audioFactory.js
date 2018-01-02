@@ -75,12 +75,12 @@ angular.module('bandstagram')
       "filePath": { "value": "cdvfile://localhost/temporary/", "writable": true, "enumberable": true },
       
       //save the recordingObj here
-      "recordingObj": { "value": {}, "writable": true, "enumberable": true },
+      "recordingObj": { "value": null, "writable": true, "enumberable": true },
       
       //play and stop the recordingObj after recording
       "reviewRecording": {
         "value": function () {
-          if (!this.currentlyPlaying) {
+          if (!this.currentlyPlaying && this.recordingObj) {
             this.currentlyPlaying = true
             this.recordingObj.play()
           } else {
