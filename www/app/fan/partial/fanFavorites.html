@@ -1,20 +1,42 @@
 <ion-view view-title="FAVORITE RECORDINGS">
+
+    <!-- adds a icon to trigger the delete buttons, when pressed it will remove the reorder buttons -->
     <ion-nav-buttons side="left">
         <button class="button button-icon icon ion-ios-minus-outline"
         ng-click="data.showDelete = !data.showDelete; data.showReorder = !data.showReorder">
         </button>
      </ion-nav-buttons>
+
   <ion-content class="padding">
+
+    <!-- only show either the delete or reorder buttons, not both -->
     <ion-list show-reorder="data.showReorder" show-delete="data.showDelete">
+      
+      <!-- show all items in the favorite array as long as the favorite property on that opject is truthy -->
       <ion-item class="item item-thumbnail-left" ng-repeat="favorite in favorites" ng-show="favorite.favorite">
+        
         <img ng-src={{favorite.imageURL}}>
         <h2>{{favorite.bandName}}</h2>
         <p>{{favorite.songName}}</p>
-        <ion-reorder-button class="ion-navicon" ng-click="togglePlay(favorite.recordingURL)" on-reorder="moveItem(favorite, $fromIndex, $toIndex)"></ion-reorder-button>
+        
+        <!-- trigger moveItem function on reorder and play playlist function if clicked -->
+        <ion-reorder-button class="ion-navicon" ng-click="playAll($index)" on-reorder="moveItem(favorite, $fromIndex, $toIndex)"></ion-reorder-button>
+        
+        <!-- trigger delete -->
         <ion-delete-button class="ion-minus-circled button-dark" ng-click="onItemDelete(favorite)">
-          </ion-delete-button>
+        </ion-delete-button>
+        
       </ion-item>
-
+      
     </ion-list>
   </ion-content>
+  <ion-footer-bar>
+      <!-- shitty play controlls - play all takes an index, so 0 starts at the beggining -->
+      <div class="button-bar bar-dark" id="playAll">
+          <a class="button" ng-click="playAllPrevious()"><i class="icon ion-ios-skipbackward"></i></a>
+          <a class="button" ng-click="playAll(0)"><i class="icon ion-ios-play"></i></a>
+          <a class="button" ng-click="playAllStop()"><i class="icon ion-stop"></i></a>
+          <a class="button" ng-click="playAllNext()"><i class="icon ion-ios-skipforward"></i></a>
+      </div>
+    </ion-footer-bar>
 </ion-view>

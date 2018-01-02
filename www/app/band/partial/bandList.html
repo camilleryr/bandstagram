@@ -1,6 +1,9 @@
 <ion-view view-title="HOME">
+
   <ion-content class="padding">
+
     <ion-list>
+      <!-- display all songs in order by time with the newest on top, remove them if the hide propery is true, trigger action sheet on click -->
       <div class="list ng-hide" ng-repeat="song in songs | orderBy: '-timeStamp'" ng-click="triggerActionSheet(song)"  ng-hide="song.hide">
 
         <div class="item item-avatar">
@@ -12,6 +15,7 @@
           <img ng-src={{song.imageURL}}>
         </div>
 
+        <!-- show individual totals for thumbs up and down -->
         <a class="item assertive">
           {{song.vote.up}}
           <i class="icon ion-thumbsup"></i>
@@ -20,6 +24,9 @@
         </a>
 
       </div>
+
     </ion-list>
+
   </ion-content>
+  
 </ion-view>

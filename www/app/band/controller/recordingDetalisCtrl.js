@@ -1,19 +1,17 @@
 angular.module('bandstagram')
     .controller('recordingDetailsCtrl', function ($scope, $state, $ionicModal, audioFactory, databaseFactory,  photoFactory, dataService) {
 
-        // let refrenceUrls = {}
-
-        // $scope.placeholder = photoFactory.placeholder
-
+        // pull the song object from the dataService
         $scope.recordingInfo = dataService.getRecordingObject()
-
+        
         $scope.takePicture = function(){
             photoFactory.takePhoto().then(result => {
                 $scope.recordingInfo.imageURL = result
             })
         }
         
-
+        
+        // open the recording modal - HACKY REPEATED CODE... BOOOOOOO!!!
         $ionicModal.fromTemplateUrl('app/band/partial/addRecordingModal.html', {
             scope: $scope,
             animation: 'slide-in-left'
@@ -24,10 +22,6 @@ angular.module('bandstagram')
         $scope.openModal = function () {
             $scope.modal.show();
         };
-
-        $scope.save = function () {
-            editRecordingInfo
-        }
 
         $scope.closeModal = function () {
             $scope.modal.hide();
@@ -72,7 +66,7 @@ angular.module('bandstagram')
                         "recordingURL" : $scope.recordingInfo.recordingURL,
                         "songDescription" : $scope.recordingInfo.songDescription,
                         "songName" : $scope.recordingInfo.songName 
-                    }).then(uploaded => $state.go('band.home'))
+                    }).then(uploaded => $state.go('band.list'))
                 }
             }
         })

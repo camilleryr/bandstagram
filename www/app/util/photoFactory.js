@@ -1,10 +1,12 @@
 angular.module('bandstagram')
     .factory("photoFactory", function ($cordovaCamera, $rootScope) {
         return Object.create(null, {
+            //placeholder image
             "placeholder" : {
                 "value" : "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fcnet4.cbsistatic.com%2Ffly%2F893-fly%2Fbundles%2Fcnetcss%2Fimages%2Fplaceholder%2Fimage_placeholder.png&f=1", "enumerable": true
             },
-
+            
+            //take a photo, save it to firebase and return the download url
             "takePhoto": {
                 "value": () => {
 

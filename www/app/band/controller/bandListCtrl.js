@@ -4,8 +4,10 @@ angular.module('bandstagram')
 
         let bandId = firebase.auth().currentUser.uid
 
+        //pull user info from dataService - saved from the home controller
         $scope.bandInfo = dataService.getUserInfo()
 
+        //array of promises fro the bandListFilter - adds all vote info to the song objects
         let requests = [databaseFactory.getSongsByBand(bandId), databaseFactory.getTable("voteTable")]
 
         $q.all(requests).then(results => {
@@ -15,10 +17,9 @@ angular.module('bandstagram')
             console.log($scope.songs)
         })
 
+        //open up an affordance when a song is selected with edit and delete options
         $scope.triggerActionSheet = function (song) {
 
-
-            // Show the action sheet
             var showActionSheet = $ionicActionSheet.show({
                 buttons: [
                     { text: '<p class ="calm">Edit</p>' }
@@ -29,35 +30,43 @@ angular.module('bandstagram')
                 cancelText: '<p class="dark">Cancel</p>',
 
                 cancel: function () {
-                    // add cancel code...
+                    // this already closes the action sheet, I dont think it needs to do anything else
                 },
 
                 buttonClicked: function (index) {
+                    // this is for the edit button, it takes you to the song detail pate
                     if (index === 0) {
+                        // save the song object to the data service so that it can be accessed from the edit page
                         dataService.setRecordingObject(song)
                         $state.go('band.list.details')
                     }
                 },
 
+                // for when you click the delte button
                 destructiveButtonClicked: function () {
-
-                        var confirmPopup = $ionicPopup.confirm({
-                            title: 'Delete Recording',
-                            template: 'Are you sure you want to delete this recording?'
-                        });
-
-                        confirmPopup.then(function (res) {
-                            if (res) {
-                                let $index = $scope.songs.map(function(e) { return e.id; }).indexOf(song.id)
-                                $scope.songs[$index].hide = true
-                                databaseFactory.deleteRecordingInfo(song.id)
-                                showActionSheet.$scope.cancel()
-                                console.log('You are sure');
-                            } else {
-                                console.log('You are not sure');
-                            }
-                        });
                     
+                    // open a confirmation popup
+                    var confirmPopup = $ionicPopup.confirm({
+                        title: 'Delete Recording',
+                        template: 'Are you sure you want to delete this recording?'
+                    });
+                    
+                    // if confirmed...
+                    confirmPopup.then(function (res) {
+                        if (res) {
+                            // find the index of the song in the songs array
+                            let $index = $scope.songs.map(function (e) { return e.id; }).indexOf(song.id)
+                            // add a property of hide
+                            $scope.songs[$index].hide = true
+                            // remove it from firebaseDB
+                            databaseFactory.deleteRecordingInfo(song.id)
+                            // close action sheed
+                            showActionSheet.$scope.cancel()
+                        } else {
+                            console.log('You are not sure');
+                        }
+                    });
+
                 }
             });
         };

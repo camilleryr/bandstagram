@@ -13,23 +13,24 @@ angular.module('bandstagram')
             })
         }
         
-
+        //modal controls for the add recording page
         $ionicModal.fromTemplateUrl('app/band/partial/addRecordingModal.html', {
             scope: $scope,
             animation: 'slide-in-left'
         }).then(function (modal) {
             $scope.modal = modal;
         });
-
+        
         $scope.openModal = function () {
             $scope.modal.show();
         };
-
+        
         $scope.closeModal = function () {
             $scope.modal.hide();
-
+            
         }
-
+        
+        //angular pass throughs to the recording factory and controlls for the big ol recording button
         $scope.recording = Object.create(null, {
             "active": {
                 "value": false, "writable": true, "enumerable": true

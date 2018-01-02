@@ -9,24 +9,29 @@
 
         <div class="list">
         
+          <!-- Display Stats -->
+          <!-- Number of posts is the length of the recordings array -->
           <a class="item item-icon-left">
             <i class="icon dark ion-ios-mic"></i>
             Posts
             <span class="badge badge-calm">{{recordings.length}}</span>
           </a>
-
+          
+          <!-- Number of followers is the length of the followers array -->
           <a class="item item-icon-left">
             <i class="icon dark ion-person-stalker"></i>
             Followers
             <span class="badge badge-calm">{{followers.length}}</span>
           </a>
-
+          
+          <!-- Number of votes is the length of the votes array -->
           <a class="item item-icon-left">
             <i class="icon dark ion-ios-checkmark-outline"></i>
             Number of Votes
             <span class="badge badge-calm">{{votes.length}}</span>
           </a>
           
+          <!-- Total sum of the votes is calculated and thumbsup / blue badge are displayed for positive number and thumbsdown / red badge are displayed for 0 or negative numbers -->
           <a class="item item-icon-left">
             <i class="icon dark" ng-class="voteTotal > 0 ? 'ion-thumbsup' : 'ion-thumbsdown'"></i>
             Vote Total
@@ -34,8 +39,6 @@
           </a>
         
         </div>
-
-      
     </ion-list>
   </ion-content>
 </ion-view>
