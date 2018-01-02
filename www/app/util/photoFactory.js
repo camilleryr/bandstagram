@@ -12,10 +12,10 @@ angular.module('bandstagram')
 
                     let options =
                         {
-                            quality: 50,
+                            quality: 01,
                             destinationType: Camera.DestinationType.DATA_URL,
                             sourceType: Camera.PictureSourceType.CAMERA,
-                            allowEdit: true,
+                            // allowEdit: true,
                             encodingType: Camera.EncodingType.JPEG,
                             popoverOptions: CameraPopoverOptions,
                             saveToPhotoAlbum: false

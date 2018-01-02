@@ -59,9 +59,9 @@ angular.module('bandstagram')
             }
           }
 
-          console.log("Play")
           this.currentlyPlaying = true
           this.mediaObject = new Media(this.mediaURL, onSuccess, onError, mediaStatusCallback)
+          console.log(JSON.stringify(this.mediaObject))
           this.mediaObject.play();
         }
       },
