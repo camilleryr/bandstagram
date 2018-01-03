@@ -44,6 +44,7 @@ angular.module('bandstagram')
     // delete an object from the favorite list and table
     $scope.onItemDelete = function(favorite) {
         $scope.favorites.find(x => x.id === favorite.id).favorite = null
+        $scope.favorites.splice($scope.favorites.map(x => x.id).indexOf(favorite.id),1)
         databaseFactory.removeFromFavorites(fanUID, favorite.favoriteID)
     }
     

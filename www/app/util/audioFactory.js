@@ -43,26 +43,26 @@ angular.module('bandstagram')
         "value": function () {
 
           let onSuccess = () => {
-            console.log("success")
-            this.currentlyPlaying = false
+            // console.log("success")
+            // this.currentlyPlaying = false
           }
 
           let onError = (error) => {
-            console.log(JSON.stringify(error))
+            // console.log(JSON.stringify(error))
           }
 
           let mediaStatusCallback = function (status) {
-            if (status == 1) {
-              $rootScope.show('Loading...');
-            } else {
-              $rootScope.hide();
-            }
+            // if (status == 1) {
+            //   $rootScope.show('Loading...');
+            // } else {
+            //   $rootScope.hide();
+            // }
           }
-
-          this.currentlyPlaying = true
+          
           this.mediaObject = new Media(this.mediaURL, onSuccess, onError, mediaStatusCallback)
           console.log(JSON.stringify(this.mediaObject))
           this.mediaObject.play();
+          this.currentlyPlaying = true
         }
       },
 
@@ -136,21 +136,12 @@ angular.module('bandstagram')
       "playlist": { "value": [], "writable": true, "enumberable": true },
       
       //track the index of the song being played
-      "playlistIndex": { "value": 0, "writable": true, "enumberable": true },
+      "playlistIndex": { "value": null, "writable": true, "enumberable": true },
       
       //set the playlist array and playlistIndex, play the track at the startingPosition and then at the end of any track call the playNext function with the onSuccess callback
       //set the playlist array and playlistIndex, play the track at the startingPosition and then at the end of any track call the playNext function with the onSuccess callback
       "playAll": {
         "value": function (songArray, startingPosition) {
-          
-          this.playlist = songArray
-          
-          this.playlistIndex = startingPosition
-          
-          if(this.currentlyPlaying === true) {
-            this.mediaObject.stop()
-            this.currentlyPlaying = false
-          }
           
           let onSuccess = () => {
             this.currentlyPlaying = false
@@ -178,7 +169,15 @@ angular.module('bandstagram')
             }
           }
           
-          playNext()
+          if(this.currentlyPlaying === true  && startingPosition === this.playlistIndex) {
+            this.playlist = []
+            this.mediaObject.stop()
+            this.currentlyPlaying = false
+          } else {
+            this.playlist = songArray
+            this.playlistIndex = startingPosition
+            playNext()
+          }
         }
       },
       
