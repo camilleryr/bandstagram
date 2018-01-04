@@ -20,7 +20,7 @@
     <ion-list>
 
       <!-- display bands from band table, use the text input and the button bar to filter -->
-      <ion-item class="item item-thumbnail-left" ng-repeat="band in bandTable | filter: query | favoriteFilter:active">
+      <ion-item class="item item-thumbnail-left" ng-repeat="band in bandTable | filter: query | favoriteFilter:active | orderBy: 'bandName'">
         <img ng-src="{{band.photoURL}}" style="border-radius:50%">
         <h2>{{band.bandName}}</h2>
         <p>{{band.location}}</p>

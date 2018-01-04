@@ -13,6 +13,7 @@ angular.module('bandstagram')
     //once the array of promises is resolved, send results to the fan search filter, this adds a property to all of the bands to match the followed status - save the results to scope
     $q.all(requests).then(results => {
         $scope.bandTable = $filter('fanSearchFilter')(results[0],results[1])
+        console.log($scope.bandTable)
     })
     
     //navigate to a new view to show the details of a band, send the uid and a boolean value of followed to the view with state paramaters
@@ -37,7 +38,7 @@ angular.module('bandstagram')
     }
     
     //property for showing and hiding filtered results on the partial
-    $scope.active = 'all';
+    $scope.active = 'followed';
 
     $scope.setActive = function(type) {
         $scope.active = type;
